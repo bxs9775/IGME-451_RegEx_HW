@@ -4,8 +4,14 @@
 #include<string>
 #include<map>
 #include<regex>
+#include<fstream>
 #include "Section.h"
 #include "Datum.h"
+
+/**
+#define MAX_INPUT = 9000
+#define MAX_FILE_SIZE = MAX_INPUT * sizeof(char)
+*/
 
 
 class ConfigParser
@@ -16,7 +22,7 @@ public:
 	~ConfigParser();
 
 	// main functions
-	char* loadFile(std::string path);
+	std::string loadFile(std::string path);
 	bool parseConfig();
 
 	//Data getters
@@ -54,12 +60,12 @@ private:
 	std::regex comment("#.*$");
 	std::regex blankLine("^\w*$");
 	//std::regex section("^[\\s*(\\S+)\\s]$");
-	std::regex section("^\\[\\s*(?<section>\\w+)\\s*(?:\\:\\s*(?<subsection>\\w+)\\s*)?\\]$");
+	std::regex section("^\\[(?<section>\\w+)(?:\\:(?<subsection>\\w+))?\\]$");
 	ste::regex keyValuePair("^\\s*(?<key>\\w+)\\s*=\\s*(?<value>.+)\\s*$");
 	//fields
 	int lineIndex;
 	std::map<string, Section> data;
-	char* file;
+	std::string config;
 
 };
 
