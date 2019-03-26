@@ -5,6 +5,7 @@
 #include<map>
 #include<regex>
 #include<fstream>
+#include<iostream>
 #include "Section.h"
 #include "Datum.h"
 
@@ -57,15 +58,17 @@ private:
 			//CONFIG_DEFAULT_T regex
 			std::regex("\w*"),
 	];
-	std::regex comment("#.*$");
-	std::regex blankLine("^\w*$");
-	//std::regex section("^[\\s*(\\S+)\\s]$");
-	std::regex section("^\\[(?<section>\\w+)(?:\\:(?<subsection>\\w+))?\\]$");
-	ste::regex keyValuePair("^\\s*(?<key>\\w+)\\s*=\\s*(?<value>.+)\\s*$");
+	std::regex newLineRegex("^.*?$");
+	std::regex commentRegex("#.*$");
+	std::regex blankLineRegex("^\w*$");
+	//std::regex sectionRegex("^[\\s*(\\S+)\\s]$");
+	std::regex sectionRegex("^\\[(\\w+)(?:\\:(\\w+))?\\]$");
+	ste::regex keyValuePairRegex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
 	//fields
-	int lineIndex;
+	//int lineIndex;
 	std::map<string, Section> data;
 	std::string config;
-
+	std::string section;
+	std::string subsection;
 };
 

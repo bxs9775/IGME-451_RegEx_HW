@@ -3,6 +3,7 @@
 
 ConfigParser::ConfigParser(std::string path)
 {
+	lineIndex = 0;
 	loadFile(path);
 }
 
@@ -26,13 +27,46 @@ ConfigParser::loadFile(std::string path)
 
 	while (std::getline(file, line))
 	{
-		file += line;
+		file += config;
 	}
 
-	return file;
+	return config;
 }
 
 ConfigParser::parseConfig()
 {
+	//Tokenize lines???
+	std::string lines = std::sregex_token_iterator(config.begin(),config.end(), newLineRegex, 1);
+	int numLines = lines.size();
+	//lineIndex = 0;
+	//Iterate through lines
 
+	std::string currLine = "";
+
+	for (int lineInd = 0; lineInd < numLines;i++) {
+		currLine = lines[lineInd];
+		std::cout << "Line " << lineInd << ": " << currLine << std::endl();
+		
+		// Remove comment (these can be ignored).
+		std::cout << "[Removing comments...]" << std::endl();
+		currLine = std::regex_relpace(currLine, commentRegex, "");
+		std::cout << "Line " << lineInd << ": " << currLine << std::endl();
+
+		// If there is only white space you can move on...
+		std::cout << "[Checking whitespace...]" << std::endl();
+		if (std::regex_match(currLine, blankLineRegex))
+		{
+			std::cout << "Line " << lineInd << " has been skipped.";
+			break;
+		}
+
+		//Checking if this is a section.
+		std::cout << "[Checking sections...]" << std::endl();
+		std::smatch sectionsMatch;
+		if (std::regex_match(currLine, sectionRegex)) {
+			std::cout << "Line " << lineInd << " is a section.";
+			std::cout << " -- section: " << sectionsMatch[0];
+			std::cout << " -- subsection: " << sectionsMatch[1];
+		}
+	}
 }
