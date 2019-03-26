@@ -2,10 +2,12 @@
 //
 
 #include "stdafx.h"
-
+#include "ConfigParser.h"
 
 int main()
 {
+	ConfigParser configParse = new ConfigParser("HW3_Ex_Config.txt");
+	configParse.parseConfig();
 	return 0;
 }
 
