@@ -22,7 +22,7 @@
     <ProjectGuid>{F5CA6AE6-1D35-4FB8-817C-E20F858389B7}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>IGME451_RegEx_HW</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -147,6 +147,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConfigParser.h" />
+    <ClInclude Include="ConfigVar.h" />
     <ClInclude Include="Datum.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Section.h" />

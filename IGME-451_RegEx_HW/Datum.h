@@ -1,4 +1,7 @@
 #pragma once
+
+#include "ConfigVar.h"
+
 class Datum
 {
 public:
@@ -7,17 +10,17 @@ public:
 	~Datum();
 
 	// getters
-	class getClass();
-	template<T>
+	configVar getClass();
+	template<typename T>
 	T get();
 
 	//operator overrides
-	template<T>
+	template<typename T>
 	void operator=(T value);
 
 private:
 	//fields
-	class classType;
+	configVar classType;
 	void* value;
 };
 

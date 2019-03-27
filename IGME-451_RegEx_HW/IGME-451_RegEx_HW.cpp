@@ -6,7 +6,7 @@
 
 int main()
 {
-	ConfigParser configParse = new ConfigParser("HW3_Ex_Config.txt");
+	ConfigParser configParse = ConfigParser("HW3_Ex_Config.txt");
 	configParse.parseConfig();
 	return 0;
 }
