@@ -65,15 +65,24 @@ bool ConfigParser::parseConfig()
 		}
 
 		//Checking if this is a section.
-		std::cout << "[Checking sections...]" << std::endl;
+		std::cout << "[Checking for sections...]" << std::endl;
 		std::smatch sectionsMatch;
 		if (std::regex_match(currLine, sectionsMatch, sectionRegex)) {
 			std::cout << "Line " << lineInd << " is a section." << std::endl;
-			std::cout << " -- count: " << sectionsMatch.length() << std::endl;
 			std::cout << " -- section: " << sectionsMatch[1] << std::endl;
-			if (sectionsMatch.length() > 1) {
-				std::cout << " -- subsection: " << sectionsMatch[2] << std::endl;
-			}
+			std::cout << " -- subsection: " << sectionsMatch[2] << std::endl;
+
+			section = sectionsMatch[1];
+			subsection = sectionsMatch[2];
+		}
+
+		//Checking if this is a key value pair.
+		std::cout << "[Checking for key value pairs...]" << std::endl;
+		std::smatch keyValueMatch;
+		if (std::regex_match(currLine, keyValueMatch, keyValueRegex)) {
+			std::cout << "Line " << lineInd << " is a key value pair." << std::endl;
+			std::cout << " -- key: " << keyValueMatch[1] << std::endl;
+			std::cout << " -- value: " << keyValueMatch[2] << std::endl;
 		}
 	std::cout << std::endl;
 	}

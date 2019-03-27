@@ -59,7 +59,7 @@ private:
 	std::regex blankLineRegex = std::regex("^\w*$");
 	//std::regex sectionRegex = std::regex("^[\\s*(\\S+)\\s]$");
 	std::regex sectionRegex = std::regex("^\\[(\\w+)(?:\\:(\\w+))?\\]$");
-	std::regex keyValuePairRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
+	std::regex keyValueRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
 	//fields
 	//int lineIndex;
 	std::map<std::string, Section> data;
