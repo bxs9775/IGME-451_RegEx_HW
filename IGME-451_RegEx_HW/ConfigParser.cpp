@@ -60,21 +60,22 @@ bool ConfigParser::parseConfig()
 		std::cout << "[Checking whitespace...]" << std::endl;
 		if (std::regex_match(currLine, blankLineRegex))
 		{
-			std::cout << "Line " << lineInd << " has been skipped.";
+			std::cout << "Line " << lineInd << " has been skipped." << std::endl;
 			continue;
 		}
 
 		//Checking if this is a section.
 		std::cout << "[Checking sections...]" << std::endl;
 		std::smatch sectionsMatch;
-		if (std::regex_match(currLine, sectionRegex)) {
-			std::cout << "Line " << lineInd << " is a section.";
+		if (std::regex_match(currLine, sectionsMatch, sectionRegex)) {
+			std::cout << "Line " << lineInd << " is a section." << std::endl;
 			std::cout << " -- count: " << sectionsMatch.length() << std::endl;
-			std::cout << " -- section: " << sectionsMatch[0] << std::endl;
+			std::cout << " -- section: " << sectionsMatch[1] << std::endl;
 			if (sectionsMatch.length() > 1) {
-				std::cout << " -- subsection: " << sectionsMatch[1] << std::endl;
+				std::cout << " -- subsection: " << sectionsMatch[2] << std::endl;
 			}
 		}
+	std::cout << std::endl;
 	}
 	return false;
 }
