@@ -14,9 +14,10 @@ using namespace std::regex_constants;
 
 
 /**
-#define MAX_INPUT = 9000
-#define MAX_FILE_SIZE = MAX_INPUT * sizeof(char)
+#define MAX_INPUT 9000
+#define MAX_FILE_SIZE MAX_INPUT * sizeof(char)
 */
+#define DATA_MAP std::map<std::string,Section>
 
 class ConfigParser
 {

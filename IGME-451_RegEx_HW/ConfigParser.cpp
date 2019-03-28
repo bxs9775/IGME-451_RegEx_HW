@@ -82,9 +82,11 @@ bool ConfigParser::parseConfig()
 				if (!ListNamedSection(section).addSubsection(subsection)) {
 					std::cerr << "Line " << lineInd << ": Subsection \"" << subsection << "\" already created.";
 					return false;
-				}
+				} 
+				continue;
 			}
 			data[section] = Section();
+			continue;
 		}
 
 		//Checking if this is a key value pair.
@@ -94,6 +96,7 @@ bool ConfigParser::parseConfig()
 			std::cout << "Line " << lineInd << " is a key value pair." << std::endl;
 			std::cout << " -- key: " << keyValueMatch[1] << std::endl;
 			std::cout << " -- value: " << keyValueMatch[2] << std::endl;
+			continue;
 		}
 	std::cout << std::endl;
 	}
@@ -118,7 +121,7 @@ Section ConfigParser::ListNamedSection(std::string name)
 {
 	DATA_MAP::iterator sectionIter = data.find(name);
 	if (sectionIter == data.end()) {
-		return NULL;
+		return Section();
 	}
 	return sectionIter->second;
 }
