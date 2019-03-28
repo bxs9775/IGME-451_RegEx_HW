@@ -18,6 +18,7 @@ public:
 
 	//adding functions
 	void addPair(std::string key, Datum value);
+	void addPair(std::string subsection,std::string key, Datum value);
 	bool addSubsection(std::string name);
 private:
 	//fields

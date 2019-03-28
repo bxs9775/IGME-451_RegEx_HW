@@ -88,8 +88,3 @@ bool ConfigParser::parseConfig()
 	}
 	return false;
 }
-
-std::list<Section> ConfigParser::ListAllSections()
-{
-	return std::list<Section>();
-}
