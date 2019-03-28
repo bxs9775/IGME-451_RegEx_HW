@@ -12,11 +12,11 @@
 
 using namespace std::regex_constants;
 
+
 /**
 #define MAX_INPUT = 9000
 #define MAX_FILE_SIZE = MAX_INPUT * sizeof(char)
 */
-
 
 class ConfigParser
 {
@@ -30,6 +30,7 @@ public:
 	bool parseConfig();
 
 	//Data getters
+	bool SectionExists(std::string name);
 	std::list<Section> ListAllSections();
 	Section ListNamedSection(std::string name);
 	std::list<Section> ListSubsections(std::string name);

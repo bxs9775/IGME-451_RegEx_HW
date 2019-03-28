@@ -74,6 +74,17 @@ bool ConfigParser::parseConfig()
 
 			section = sectionsMatch[1];
 			subsection = sectionsMatch[2];
+			if (SectionExists(section)) {
+				if (subsection == "") {
+					std::cerr << "Line " << lineInd << ": Section \"" << section << "\" already created.";
+					return false;
+				}
+				if (!ListNamedSection(section).addSubsection(subsection)) {
+					std::cerr << "Line " << lineInd << ": Subsection \"" << subsection << "\" already created.";
+					return false;
+				}
+			}
+			data[section] = Section();
 		}
 
 		//Checking if this is a key value pair.
@@ -87,4 +98,27 @@ bool ConfigParser::parseConfig()
 	std::cout << std::endl;
 	}
 	return false;
+}
+
+bool ConfigParser::SectionExists(std::string name)
+{
+	return data.count(name);
+}
+
+std::list<Section> ConfigParser::ListAllSections()
+{
+	std::list<Section> sections;
+	for (DATA_MAP::iterator iter = data.begin(); iter != data.end(); ++iter) {
+		sections.push_back(iter->second);
+	}
+	return sections;
+}
+
+Section ConfigParser::ListNamedSection(std::string name)
+{
+	DATA_MAP::iterator sectionIter = data.find(name);
+	if (sectionIter == data.end()) {
+		return NULL;
+	}
+	return sectionIter->second;
 }
