@@ -3,7 +3,6 @@
 
 ConfigParser::ConfigParser(std::string path)
 {
-	data = new DATA_MAP();
 
 	//lineIndex = 0;
 	loadFile(path);
@@ -11,9 +10,8 @@ ConfigParser::ConfigParser(std::string path)
 
 ConfigParser::~ConfigParser()
 {
-	if (data != nullptr) {
-		delete data;
-		data = nullptr;
+	for (std::map<std::string, Section*>::iterator dataIter = data.begin(); dataIter != data.end(); ++dataIter) {
+		delete(dataIter->second);
 	}
 }
 
@@ -79,13 +77,13 @@ bool ConfigParser::parseConfig()
 					std::cerr << "Line " << lineInd << ": Section \"" << section << "\" already created.";
 					return false;
 				}
-				if (!ListNamedSection(section).addSubsection(subsection)) {
+				if (!ListNamedSection(section)->addSubsection(subsection)) {
 					std::cerr << "Line " << lineInd << ": Subsection \"" << subsection << "\" already created.";
 					return false;
 				} 
 				continue;
 			}
-			(*data)[section] = Section();
+			data[section] = new Section();
 			continue;
 		}
 
@@ -105,23 +103,23 @@ bool ConfigParser::parseConfig()
 
 bool ConfigParser::SectionExists(std::string name)
 {
-	return data->count(name);
+	return data.count(name);
 }
 
-std::list<Section> ConfigParser::ListAllSections()
+std::list<Section*> ConfigParser::ListAllSections()
 {
-	std::list<Section> sections;
-	for (DATA_MAP::iterator iter = data->begin(); iter != data->end(); ++iter) {
+	std::list<Section*> sections;
+	for (DATA_MAP::iterator iter = data.begin(); iter != data.end(); ++iter) {
 		sections.push_back(iter->second);
 	}
 	return sections;
 }
 
-Section ConfigParser::ListNamedSection(std::string name)
+Section* ConfigParser::ListNamedSection(std::string name)
 {
-	DATA_MAP::iterator sectionIter = data->find(name);
-	if (sectionIter == data->end()) {
-		return Section();
+	DATA_MAP::iterator sectionIter = data.find(name);
+	if (sectionIter == data.end()) {
+		return new Section();
 	}
 	return sectionIter->second;
 }

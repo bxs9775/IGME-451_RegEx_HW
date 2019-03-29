@@ -17,7 +17,7 @@ using namespace std::regex_constants;
 #define MAX_INPUT 9000
 #define MAX_FILE_SIZE MAX_INPUT * sizeof(char)
 */
-#define DATA_MAP std::map<std::string,Section>
+#define DATA_MAP std::map<std::string,Section*>
 
 class ConfigParser
 {
@@ -32,11 +32,11 @@ public:
 
 	//Data getters
 	bool SectionExists(std::string name);
-	std::list<Section> ListAllSections();
-	Section ListNamedSection(std::string name);
-	std::list<Section> ListSubsections(std::string name);
-	std::list<std::pair<std::string, Datum>> ListAllEntries(std::string name);
-	std::pair<std::string, Datum> GetEntry(std::string section, std::string key);
+	std::list<Section*> ListAllSections();
+	Section* ListNamedSection(std::string name);
+	std::list<Section*> ListSubsections(std::string name);
+	std::list<std::pair<std::string, Datum*>> ListAllEntries(std::string name);
+	std::pair<std::string, Datum*> GetEntry(std::string section, std::string key);
 
 	//Other getters
 	int getLine();
@@ -64,7 +64,7 @@ private:
 	std::regex keyValueRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
 	//fields
 	//int lineIndex;
-	std::map<std::string, Section>* data;
+	std::map<std::string, Section*> data;
 	std::string config;
 	std::string section;
 	std::string subsection;
