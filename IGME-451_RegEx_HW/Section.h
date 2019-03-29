@@ -13,8 +13,8 @@ public:
 	~Section();
 
 	//getters
-	std::map<std::string, Datum> getPairs();
-	std::map<std::string, Section> getSubsections();
+	std::map<std::string, Datum>* getPairs();
+	std::map<std::string, Section>* getSubsections();
 
 	//adding functions
 	void addPair(std::string key, Datum value);
@@ -22,7 +22,7 @@ public:
 	bool addSubsection(std::string name);
 private:
 	//fields
-	std::map<std::string, Datum> pairs;
-	std::map<std::string, Section> subsections;
+	std::map<std::string, Datum>* pairs;
+	std::map<std::string, Section>* subsections;
 };
 

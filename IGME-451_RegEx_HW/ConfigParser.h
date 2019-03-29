@@ -64,7 +64,7 @@ private:
 	std::regex keyValueRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
 	//fields
 	//int lineIndex;
-	std::map<std::string, Section> data;
+	std::map<std::string, Section>* data;
 	std::string config;
 	std::string section;
 	std::string subsection;

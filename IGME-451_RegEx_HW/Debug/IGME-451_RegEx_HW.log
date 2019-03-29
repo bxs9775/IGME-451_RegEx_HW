@@ -1,6 +1,2 @@
-﻿  ConfigParser.cpp
-c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.h(56): warning C4129: 'w': unrecognized character escape sequence
-c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.h(61): warning C4129: 'w': unrecognized character escape sequence
-c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.cpp(108): warning C4800: 'unsigned int': forcing value to bool 'true' or 'false' (performance warning)
-  IGME-451_RegEx_HW.vcxproj -> C:\Users\Brian\Documents\Brian\RIT\Senior Year 2018-2019\Spring Semester\Sys Concepts Games & Media\Homeworks\HW3\IGME-451_RegEx_HW\Debug\IGME-451_RegEx_HW.exe
+﻿  IGME-451_RegEx_HW.vcxproj -> C:\Users\Brian\Documents\Brian\RIT\Senior Year 2018-2019\Spring Semester\Sys Concepts Games & Media\Homeworks\HW3\IGME-451_RegEx_HW\Debug\IGME-451_RegEx_HW.exe
   IGME-451_RegEx_HW.vcxproj -> C:\Users\Brian\Documents\Brian\RIT\Senior Year 2018-2019\Spring Semester\Sys Concepts Games & Media\Homeworks\HW3\IGME-451_RegEx_HW\Debug\IGME-451_RegEx_HW.pdb (Full PDB)

@@ -3,18 +3,18 @@
 
 ConfigParser::ConfigParser(std::string path)
 {
+	data = new DATA_MAP();
+
 	//lineIndex = 0;
 	loadFile(path);
 }
 
 ConfigParser::~ConfigParser()
 {
-	/*
-	if (path != nullptr) {
-		delete config;
-		config = nullptr;
+	if (data != nullptr) {
+		delete data;
+		data = nullptr;
 	}
-	*/
 }
 
 // main functions
@@ -85,7 +85,7 @@ bool ConfigParser::parseConfig()
 				} 
 				continue;
 			}
-			data[section] = Section();
+			(*data)[section] = Section();
 			continue;
 		}
 
@@ -105,13 +105,13 @@ bool ConfigParser::parseConfig()
 
 bool ConfigParser::SectionExists(std::string name)
 {
-	return data.count(name);
+	return data->count(name);
 }
 
 std::list<Section> ConfigParser::ListAllSections()
 {
 	std::list<Section> sections;
-	for (DATA_MAP::iterator iter = data.begin(); iter != data.end(); ++iter) {
+	for (DATA_MAP::iterator iter = data->begin(); iter != data->end(); ++iter) {
 		sections.push_back(iter->second);
 	}
 	return sections;
@@ -119,8 +119,8 @@ std::list<Section> ConfigParser::ListAllSections()
 
 Section ConfigParser::ListNamedSection(std::string name)
 {
-	DATA_MAP::iterator sectionIter = data.find(name);
-	if (sectionIter == data.end()) {
+	DATA_MAP::iterator sectionIter = data->find(name);
+	if (sectionIter == data->end()) {
 		return Section();
 	}
 	return sectionIter->second;
