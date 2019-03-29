@@ -2,11 +2,28 @@
 #include "Datum.h"
 
 
-Datum::Datum()
+Datum::Datum(configVar vType, std::string val)
 {
+	varType = vType;
+	value = val;
 }
 
 
 Datum::~Datum()
 {
+}
+
+configVar Datum::getVarType()
+{
+	return varType;
+}
+
+std::string Datum::getValue()
+{
+	return value;
+}
+
+void Datum::operator=(std::string val)
+{
+	value = val;
 }

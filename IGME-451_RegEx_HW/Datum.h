@@ -1,26 +1,27 @@
 #pragma once
 
+#include <string>
 #include "ConfigVar.h"
+
+#define GET
 
 class Datum
 {
 public:
 	//constructor
-	Datum();
+	Datum(configVar vType, std::string val);
 	~Datum();
 
 	// getters
-	configVar getClass();
-	template<typename T>
-	T get();
+	configVar getVarType();
+	std::string getValue();
 
 	//operator overrides
-	template<typename T>
-	void operator=(T value);
+	void operator=(std::string val);
 
 private:
 	//fields
-	configVar classType;
-	void* value;
+	configVar varType;
+	std::string value;
 };
 
