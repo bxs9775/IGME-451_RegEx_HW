@@ -44,18 +44,18 @@ public:
 private:
 	std::regex conVarRegex[6] = {
 		// CONFIG_BOOLEAN_T regex
-		std::regex("\\s*true\\s*|\\s*false\\s*", ECMAScript | icase),
+		std::regex("\\s*(true)\\s*|\\s*(false)\\s*", ECMAScript | icase),
 		//CONFIG_INT_T regex
-		std::regex("\\d+"),
+		std::regex("\\s*(\\d+)\\s*"),
 		//CONFIG_FLOAT_T regex
-		std::regex("\\d*\\.\\d+f"),
+		std::regex("\\s*(\\d*\\.\\d+f)\\s*"),
 		//CONFIG_STRING_T regex
-		std::regex("\\\".*\\\""),
+		std::regex("\\s*(\\\".*\\\")\\s*"),
 		//CONFIG_LIST_T regex
 		//std::regex("\\{\\s*(.+)\\s*\\}"),
-		std::regex("\\{(.+)\\}"),
+		std::regex("\\s*\\{(.+)\\}\\s*"),
 		//CONFIG_DEFAULT_T regex
-		std::regex("\\s*"),
+		std::regex("(\\s*)"),
 	};
 	std::string conVarNames[6] = {
 		"CONFIG_BOOLEAN_T",

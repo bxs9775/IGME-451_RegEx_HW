@@ -121,7 +121,10 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value, co
 		std::smatch varMatch;
 		if (std::regex_match(value, varMatch, conVarRegex[(int)currVar])) {
 			std::cout << "Line " << lineInd << " contains a variable of type " << conVarNames[(int)currVar] << "." << std::endl;
-			Datum* datum = new Datum(currVar, value);
+			// The modified value for the data.
+			std::string modVal = varMatch[1];
+			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;
+			Datum* datum = new Datum(currVar, modVal);
 			if (subsection == "") {
 				ListNamedSection(section)->addPair(key, datum);
 			}
