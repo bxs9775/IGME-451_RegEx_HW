@@ -149,6 +149,8 @@
     <ClInclude Include="ConfigParser.h" />
     <ClInclude Include="ConfigVar.h" />
     <ClInclude Include="Datum.h" />
+    <ClInclude Include="DatumBase.h" />
+    <ClInclude Include="DatumList.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="Section.h" />
     <ClInclude Include="stdafx.h" />
@@ -157,6 +159,8 @@
   <ItemGroup>
     <ClCompile Include="ConfigParser.cpp" />
     <ClCompile Include="Datum.cpp" />
+    <ClCompile Include="DatumBase.cpp" />
+    <ClCompile Include="DatumList.cpp" />
     <ClCompile Include="IGME-451_RegEx_HW.cpp" />
     <ClCompile Include="Section.cpp" />
     <ClCompile Include="stdafx.cpp">

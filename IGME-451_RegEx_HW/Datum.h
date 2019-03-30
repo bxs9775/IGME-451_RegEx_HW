@@ -1,11 +1,12 @@
 #pragma once
+#include "DatumBase.h"
 
 #include <string>
-#include "ConfigVar.h"
 
 #define GET
 
-class Datum
+class Datum:
+	public DatumBase
 {
 public:
 	//constructor
@@ -13,7 +14,6 @@ public:
 	~Datum();
 
 	// getters
-	configVar getVarType();
 	std::string getValue();
 
 	//operator overrides
@@ -21,7 +21,6 @@ public:
 
 private:
 	//fields
-	configVar varType;
 	std::string value;
 };
 

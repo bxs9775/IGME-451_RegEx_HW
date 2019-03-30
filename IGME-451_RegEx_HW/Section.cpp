@@ -9,7 +9,7 @@ Section::Section()
 
 Section::~Section()
 {
-	for (std::map<std::string, Datum*>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
+	for (std::map<std::string, DatumBase*>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
 		delete(pairIter->second);
 	}
 	for (std::map<std::string, Section*>::iterator subIter = subsections.begin(); subIter != subsections.end(); ++subIter) {
@@ -17,7 +17,7 @@ Section::~Section()
 	}
 }
 
-std::map<std::string, Datum*> Section::getPairs()
+std::map<std::string, DatumBase*> Section::getPairs()
 {
 	return pairs;
 }
@@ -27,12 +27,12 @@ std::map<std::string, Section*> Section::getSubsections()
 	return subsections;
 }
 
-void Section::addPair(std::string key, Datum* value)
+void Section::addPair(std::string key, DatumBase* value)
 {
 	pairs[key] = value;
 }
 
-void Section::addPair(std::string subName, std::string key, Datum* value)
+void Section::addPair(std::string subName, std::string key, DatumBase* value)
 {
 	std::map<std::string, Section*>::iterator subIter = subsections.find(subName);
 	if (subIter != subsections.end()) {

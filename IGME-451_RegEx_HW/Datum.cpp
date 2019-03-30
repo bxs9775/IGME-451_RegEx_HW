@@ -2,20 +2,14 @@
 #include "Datum.h"
 
 
-Datum::Datum(configVar vType, std::string val)
+Datum::Datum(configVar vType, std::string val):DatumBase(vType)
 {
-	varType = vType;
 	value = val;
 }
 
 
 Datum::~Datum()
 {
-}
-
-configVar Datum::getVarType()
-{
-	return varType;
 }
 
 std::string Datum::getValue()
