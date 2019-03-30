@@ -3,14 +3,12 @@
 
 #include <string>
 
-#define GET
-
 class Datum:
 	public DatumBase
 {
 public:
 	//constructor
-	Datum(configVar vType, std::string val);
+	Datum(ConfigVar::configVar vType, std::string val);
 	~Datum();
 
 	// getters

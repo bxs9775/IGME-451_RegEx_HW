@@ -100,7 +100,7 @@ bool ConfigParser::parseConfig()
 			}
 			std::string key = keyValueMatch[1];
 			std::string value = keyValueMatch[2];
-			configVar types[6] = { configVar::CONFIG_BOOLEAN_T, configVar::CONFIG_FLOAT_T, configVar::CONFIG_INT_T, configVar::CONFIG_STRING_T, configVar::CONFIG_LIST_T, configVar::CONFIG_DEFAULT_T };
+			ConfigVar::configVar types[6] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_LIST_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
 			
 			if (!parseType(lineInd, key, value, types,6)) {
 				return false;
@@ -113,14 +113,14 @@ bool ConfigParser::parseConfig()
 	return false;
 }
 
-bool ConfigParser::parseType(int lineInd, std::string key, std::string value, configVar varTypes[], int size)
+bool ConfigParser::parseType(int lineInd, std::string key, std::string value, ConfigVar::configVar varTypes[], int size)
 {
 	std::cout << "[Begin value parsing]" << std::endl;
 	for (int i = 0; i < size; i++) {
-		configVar currVar = varTypes[i];
+		ConfigVar::configVar currVar = varTypes[i];
 		std::smatch varMatch;
 		if (std::regex_match(value, varMatch, conVarRegex[(int)currVar])) {
-			std::cout << "Line " << lineInd << " contains a variable of type " << conVarNames[(int)currVar] << "." << std::endl;
+			std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar) << "." << std::endl;
 			// The modified value for the data.
 			std::string modVal = varMatch[1];
 			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;

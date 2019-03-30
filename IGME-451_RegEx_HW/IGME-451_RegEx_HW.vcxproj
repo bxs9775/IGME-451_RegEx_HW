@@ -158,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ConfigParser.cpp" />
+    <ClCompile Include="ConfigVar.cpp" />
     <ClCompile Include="Datum.cpp" />
     <ClCompile Include="DatumBase.cpp" />
     <ClCompile Include="DatumList.cpp" />

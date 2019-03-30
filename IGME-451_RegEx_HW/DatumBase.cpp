@@ -2,7 +2,7 @@
 #include "DatumBase.h"
 
 
-DatumBase::DatumBase(configVar vType)
+DatumBase::DatumBase(ConfigVar::configVar vType)
 {
 }
 
@@ -11,7 +11,13 @@ DatumBase::~DatumBase()
 {
 }
 
-configVar DatumBase::getVarType()
+ConfigVar::configVar DatumBase::getVarType()
 {
 	return varType;
+}
+
+std::ostream & DatumBase::operator <<(std::ostream& output)
+{
+	output << "{";
+	return output;
 }

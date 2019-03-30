@@ -29,7 +29,7 @@ public:
 	// main functions
 	std::string loadFile(std::string path);
 	bool parseConfig();
-	bool parseType(int lineInd, std::string key, std::string value, configVar varTypes[], int size);
+	bool parseType(int lineInd, std::string key, std::string value, ConfigVar::configVar varTypes[], int size);
 
 	//Data getters
 	bool SectionExists(std::string name);
@@ -42,6 +42,16 @@ public:
 	//Other getters
 	int getLine();
 private:
+	/*
+	std::string conVarNames[6] = {
+		"CONFIG_BOOLEAN_T",
+		"CONFIG_INT_T",
+		"CONFIG_FLOAT_T",
+		"CONFIG_STRING_T",
+		"CONFIG_LIST_T",
+		"CONFIG_DEFAULT_T"
+	};
+	*/
 	std::regex conVarRegex[6] = {
 		// CONFIG_BOOLEAN_T regex
 		std::regex("\\s*(true)\\s*|\\s*(false)\\s*", ECMAScript | icase),
@@ -56,14 +66,6 @@ private:
 		std::regex("\\s*\\{(.+)\\}\\s*"),
 		//CONFIG_DEFAULT_T regex
 		std::regex("(\\s*)"),
-	};
-	std::string conVarNames[6] = {
-		"CONFIG_BOOLEAN_T",
-		"CONFIG_INT_T",
-		"CONFIG_FLOAT_T",
-		"CONFIG_STRING_T",
-		"CONFIG_LIST_T",
-		"CONFIG_DEFAULT_T"
 	};
 	//std::regex newLineRegex = std::regex("^.*?$");
 	std::regex newLineRegex = std::regex("\\n");

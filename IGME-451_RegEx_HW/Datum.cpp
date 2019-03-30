@@ -2,7 +2,7 @@
 #include "Datum.h"
 
 
-Datum::Datum(configVar vType, std::string val):DatumBase(vType)
+Datum::Datum(ConfigVar::configVar vType, std::string val):DatumBase(vType)
 {
 	value = val;
 }

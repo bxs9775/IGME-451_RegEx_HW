@@ -1,16 +1,20 @@
 #pragma once
 
 #include "ConfigVar.h"
+#include<iostream>
 
 class DatumBase
 {
 public:
-	DatumBase(configVar vType);
+	DatumBase(ConfigVar::configVar vType);
 	~DatumBase();
 
 	//getters
-	configVar getVarType();
+	ConfigVar::configVar getVarType();
+
+	//other
+	std::ostream & operator <<(std::ostream& output);
 private:
-	configVar varType;
+	ConfigVar::configVar varType;
 };
 

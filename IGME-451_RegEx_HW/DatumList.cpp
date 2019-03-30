@@ -2,7 +2,7 @@
 #include "DatumList.h"
 
 
-DatumList::DatumList(configVar vType, std::list<Datum> val):DatumBase(vType)
+DatumList::DatumList(ConfigVar::configVar vType, std::list<Datum> val):DatumBase(vType)
 {
 	value = val;
 }
