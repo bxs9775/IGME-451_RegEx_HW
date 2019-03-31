@@ -250,3 +250,13 @@ std::pair<std::string, DatumBase*> ConfigParser::GetEntry(std::string section, s
 {
 	return ListNamedSection(section)->getEntry(subsection,key);
 }
+
+void ConfigParser::print(std::ostream & out)
+{
+	std::list<Section*> secs = ListAllSections();
+	for (std::list<Section*>::iterator secIter = secs.begin(); secIter != secs.end(); ++secIter) {
+		out << "Section: ";
+		(*secIter)->print(out);
+		out << std::endl << std::endl << std::endl;
+	}
+}

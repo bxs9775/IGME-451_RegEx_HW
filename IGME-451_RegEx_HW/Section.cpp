@@ -100,3 +100,25 @@ bool Section::addSubsection(std::string subName)
 	subsections[subName] = new Section(subName);
 	return true;
 }
+
+void Section::print(std::ostream & out)
+{
+	out << "[" << getName() << "]" << std::endl;
+	std::list<ENTRY> entries = getEntries();
+	for (std::list<ENTRY>::iterator pairIter = entries.begin(); pairIter != entries.end(); ++pairIter) {
+		DatumBase* value = pairIter->second;
+		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
+			((DatumList*)value)->print(out);
+		}
+		else {
+			((Datum*)value)->print(out);
+		}
+	}
+
+	std::list<Section*> secs = getSubsections();
+	for (std::list<Section*>::iterator secIter = secs.begin(); secIter != secs.end(); ++secIter) {
+		out << "Subsection: ";
+		(*secIter)->print(out);
+		out << std::endl;
+	}
+}

@@ -16,20 +16,11 @@ int main()
 	configParse.parseConfig();
 	
 	std::cout << std::endl << "-------------------------------------" << std::endl;
-	//Temporary pair checking code...
-	std::list<std::pair<std::string, DatumBase*>> pairs = configParse.ListNamedSection("globals")->getEntries();
-
-	for (std::list<std::pair<std::string, DatumBase*>>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
-		std::cout << "Key = " << pairIter->first << std::endl;
-		DatumBase* value = pairIter->second;
-		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
-			((DatumList*)value)->print(std::cout);
-		}
-		else {
-			((Datum*)value)->print(std::cout);
-		}
-	}
-	/**/
+	
+	/* Code below calls the ConfigParser's print() function to print all sections, 
+	there are other methods for exploring the data.*/
+	configParse.print(std::cout);
+	//configParse.ListNamedSection("video")->print(std::cout);
 	return 0;
 }
 

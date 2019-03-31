@@ -4,6 +4,8 @@
 #include<map>
 #include<list>
 #include "DatumBase.h"
+#include "Datum.h"
+#include "DatumList.h"
 
 #define ENTRY std::pair<std::string, DatumBase*>
 
@@ -29,6 +31,9 @@ public:
 	void addPair(std::string key, DatumBase* value);
 	void addPair(std::string subsection,std::string key, DatumBase* value);
 	bool addSubsection(std::string subName);
+
+	//other
+	void print(std::ostream& out);
 private:
 	//fields
 	std::string name;

@@ -33,8 +33,6 @@ public:
 	bool parseConfig();
 	bool parseType(int lineInd, std::string key, std::string value);
 
-	
-
 	//Data getters
 	bool SectionExists(std::string name);
 	std::list<Section*> ListAllSections();
@@ -46,8 +44,8 @@ public:
 	std::pair<std::string, DatumBase*> GetEntry(std::string section, std::string key);
 	std::pair<std::string, DatumBase*> GetEntry(std::string section, std::string subsection, std::string key);
 
-	//Other getters
-	int getLine();
+	//Other functions
+	void print(std::ostream& out);
 private:
 	ConfigVar::configVar fullAllowedTypes[6] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_LIST_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
 	ConfigVar::configVar listAllowedTypes[5] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
