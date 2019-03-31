@@ -2,13 +2,20 @@
 #include "DatumBase.h"
 
 
-DatumBase::DatumBase(ConfigVar::configVar vType)
+DatumBase::DatumBase(std::string n, ConfigVar::configVar vType)
 {
+	name = n;
+	varType = vType;
 }
 
 
 DatumBase::~DatumBase()
 {
+}
+
+std::string DatumBase::getName()
+{
+	return name;
 }
 
 ConfigVar::configVar DatumBase::getVarType()
@@ -18,6 +25,7 @@ ConfigVar::configVar DatumBase::getVarType()
 
 void DatumBase::print(std::ostream& output)
 {
-	output << "DatumBase object:" << std::endl;
+	output << "DatumBase - " << getName() << ":" << std::endl;
+	//output << "DatumBase:" << std::endl;
 	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl << std::endl;
 }
