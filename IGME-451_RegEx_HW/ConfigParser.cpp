@@ -175,7 +175,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 						return false;
 					}
 				}
-				DatumList* datumList = new DatumList(currVar, dataList);
+				DatumList* datumList = new DatumList(key, currVar, dataList);
 				if (subsection == "") {
 					ListNamedSection(section)->addPair(key, datumList);
 				}
@@ -183,7 +183,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 					ListNamedSection(section)->addPair(subsection, key, datumList);
 				}
 			}
-			Datum* datum = new Datum(currVar, modVal);
+			Datum* datum = new Datum(key, currVar, modVal);
 			if (subsection == "") {
 				ListNamedSection(section)->addPair(key, datum);
 			}
@@ -257,6 +257,5 @@ void ConfigParser::print(std::ostream & out)
 	for (std::list<Section*>::iterator secIter = secs.begin(); secIter != secs.end(); ++secIter) {
 		out << "Section: ";
 		(*secIter)->print(out);
-		out << std::endl << std::endl << std::endl;
 	}
 }
