@@ -1,0 +1,7 @@
+# String test cases
+[globals]
+name = "player1"  
+title = ""
+class = "royal \"knight\""
+class2 = "royal "knight"" # This should break!
+class3 = "One, Two, " Three" # Ditto

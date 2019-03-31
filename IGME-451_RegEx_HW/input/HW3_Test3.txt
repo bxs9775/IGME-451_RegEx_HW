@@ -1,0 +1,3 @@
+# String array test case
+[globals]
+arr = {"Call";"Call me"; "Call me \"Ishmael\""  ; "Call me "Ishmael"} # The last item should break...

@@ -1,0 +1,11 @@
+# Validly formatted variables test cases
+[globals]
+bool1 = false
+bool2 = true
+int1 = 12
+float1 = 3.14f
+float2 = .5f
+str1 = "Hello"
+str2 = "Hello World"
+list1 = {TRUE;1;1.25f;"Morning"}
+default1 = 

@@ -124,6 +124,13 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 			// The modified value for the data.
 			std::string modVal = varMatch[1];
 			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;
+			if (currVar == ConfigVar::configVar::CONFIG_STRING_T) {
+				std::string extra = varMatch[2];
+				if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
+					std::cerr << "Line " << lineInd << ": Unexpected symbol - " << extra << std::endl;
+					return false;
+				}
+			}
 			if (currVar == ConfigVar::configVar::CONFIG_LIST_T) {
 				bool valParsed = false;
 
@@ -143,6 +150,13 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 							// The modified value for the data.
 							std::string modVal2 = varMatch2[1];
 							std::cout << "Line " << lineInd << ": captured value = " << modVal2 << std::endl;
+							if (currVar2 == ConfigVar::configVar::CONFIG_STRING_T) {
+								std::string extra = varMatch2[2];
+								if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
+									std::cerr << "Line " << lineInd << ": Unexpected symbol - " << extra << std::endl;
+									return false;
+								}
+							}
 							Datum data = Datum(currVar2, modVal2);
 							dataList.push_back(data);
 							valParsed = true;

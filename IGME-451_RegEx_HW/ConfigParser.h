@@ -48,22 +48,27 @@ private:
 	std::regex conVarRegex[6] = {
 		// CONFIG_BOOLEAN_T regex
 		std::regex("\\s*(true)\\s*|\\s*(false)\\s*", ECMAScript | icase),
+
 		//CONFIG_INT_T regex
 		std::regex("\\s*(\\d+)\\s*"),
+
 		//CONFIG_FLOAT_T regex
 		std::regex("\\s*(\\d*\\.\\d+f)\\s*"),
+
 		//CONFIG_STRING_T regex
-		std::regex("\\s*(\\\".*\\\")\\s*"),
+		std::regex("\\s*(\\\".*?[^\\\\]\\\"|\\\"\\\")(.*)"),
+		
 		//CONFIG_LIST_T regex
 		//std::regex("\\{\\s*(.+)\\s*\\}"),
 		std::regex("\\s*\\{(.+)\\}\\s*"),
+		
 		//CONFIG_DEFAULT_T regex
 		std::regex("(\\s*)"),
 	};
 	//std::regex newLineRegex = std::regex("^.*?$");
 	std::regex newLineRegex = std::regex("\\n");
 	std::regex commentRegex = std::regex("#.*$");
-	std::regex blankLineRegex = std::regex("^\w*$");
+	std::regex blankLineRegex = std::regex("^\s*$");
 	//std::regex sectionRegex = std::regex("^[\\s*(\\S+)\\s]$");
 	std::regex sectionRegex = std::regex("^\\[(\\w+)(?:\\:(\\w+))?\\]$");
 	std::regex keyValueRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");

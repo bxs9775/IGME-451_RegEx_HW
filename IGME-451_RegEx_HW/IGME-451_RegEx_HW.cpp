@@ -6,9 +6,11 @@
 #include "DatumBase.h"
 #include "ConfigVar.h"
 
+#define INPUT_FILE "input\\HW3_Test2.txt"
+
 int main()
 {
-	ConfigParser configParse = ConfigParser("HW3_Ex_Config.txt");
+	ConfigParser configParse = ConfigParser(INPUT_FILE);
 	configParse.parseConfig();
 	
 	//Temporary pair checking code...
