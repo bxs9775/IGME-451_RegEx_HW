@@ -17,14 +17,9 @@ std::string Datum::getValue()
 	return value;
 }
 
-void Datum::operator=(std::string val)
-{
-	value = val;
-}
-std::ostream & operator<<(std::ostream& output, Datum & data)
+void Datum::print(std::ostream& output)
 {
 	output << "Datum object:" << std::endl;
-	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl;
-	output << " -- value: " << data.getValue() << std::endl << std::endl;
-	return output;
+	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
+	output << " -- value: " << getValue() << std::endl << std::endl;
 }

@@ -17,17 +17,12 @@ std::list<Datum> DatumList::getValue()
 	return value;
 }
 
-void DatumList::operator=(std::list<Datum> val)
-{
-	value = val;
-}
-
-std::ostream & operator<<(std::ostream & output, DatumList & data)
+void DatumList::print(std::ostream& output)
 {
 	output << "DatumList object:" << std::endl;
-	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl;
+	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
 	output << " -- value: [";
-	std::list<Datum> value = data.getValue();
+	std::list<Datum> value = getValue();
 	std::list<Datum>::iterator iter = value.begin();
 	while (iter != value.end()) {
 		output << iter->getValue();
@@ -37,5 +32,4 @@ std::ostream & operator<<(std::ostream & output, DatumList & data)
 		}
 	}
 	output << "]" << std::endl << std::endl;
-	return output;
 }

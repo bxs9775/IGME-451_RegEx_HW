@@ -16,9 +16,8 @@ ConfigVar::configVar DatumBase::getVarType()
 	return varType;
 }
 
-std::ostream & operator<<(std::ostream & output, DatumBase & data)
+void DatumBase::print(std::ostream& output)
 {
 	output << "DatumBase object:" << std::endl;
-	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl << std::endl;
-	return output;
+	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl << std::endl;
 }
