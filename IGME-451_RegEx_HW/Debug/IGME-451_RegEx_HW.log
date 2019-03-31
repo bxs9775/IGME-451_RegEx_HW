@@ -1,7 +1,7 @@
 ﻿  ConfigParser.cpp
 c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configvar.h(14): warning C4091: 'static ': ignored on left of 'ConfigVar::configVar' when no variable is declared
 c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configvar.h(17): warning C4091: 'static ': ignored on left of 'ConfigVar' when no variable is declared
-c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.h(78): warning C4129: 's': unrecognized character escape sequence
-c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.cpp(213): warning C4800: 'unsigned int': forcing value to bool 'true' or 'false' (performance warning)
+c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.h(76): warning C4129: 's': unrecognized character escape sequence
+c:\users\brian\documents\brian\rit\senior year 2018-2019\spring semester\sys concepts games & media\homeworks\hw3\igme-451_regex_hw\igme-451_regex_hw\configparser.cpp(203): warning C4800: 'unsigned int': forcing value to bool 'true' or 'false' (performance warning)
   IGME-451_RegEx_HW.vcxproj -> C:\Users\Brian\Documents\Brian\RIT\Senior Year 2018-2019\Spring Semester\Sys Concepts Games & Media\Homeworks\HW3\IGME-451_RegEx_HW\Debug\IGME-451_RegEx_HW.exe
   IGME-451_RegEx_HW.vcxproj -> C:\Users\Brian\Documents\Brian\RIT\Senior Year 2018-2019\Spring Semester\Sys Concepts Games & Media\Homeworks\HW3\IGME-451_RegEx_HW\Debug\IGME-451_RegEx_HW.pdb (Full PDB)

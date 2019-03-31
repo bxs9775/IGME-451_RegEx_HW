@@ -197,16 +197,6 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 	return false;
 }
 
-// helper functions
-template <class T1, class T2>
-std::list<T2> ConfigParser::listValues(std::map<T1, T2> m) {
-	std::list<T2> valueList;
-	for (std::map<T1,T2>::iterator iter = m.begin(); iter != m.end(); ++iter) {
-		valueList.push_back(iter->second);
-	}
-	return valueList;
-}
-
 // getter functions
 bool ConfigParser::SectionExists(std::string name)
 {
@@ -215,7 +205,11 @@ bool ConfigParser::SectionExists(std::string name)
 
 std::list<Section*> ConfigParser::ListAllSections()
 {
-	return listValues<std::string, Section*>(data);
+	std::list<Section*> sections;
+	for (DATA_MAP::iterator iter = data.begin(); iter != data.end(); ++iter) {
+		sections.push_back(iter->second);
+	}
+	return sections;
 }
 
 Section* ConfigParser::ListNamedSection(std::string name)
@@ -229,6 +223,25 @@ Section* ConfigParser::ListNamedSection(std::string name)
 
 std::list<Section*> ConfigParser::ListSubsections(std::string name)
 {
-	Section* section = ListNamedSection(name);
-	return listValues<std::string, Section*>(section->getSubsections());
+	return ListNamedSection(name)->getSubsections();
+}
+
+std::list<std::pair<std::string, DatumBase*>> ConfigParser::ListAllEntries(std::string section)
+{
+	return ListNamedSection(section)->getEntries();
+}
+
+std::list<std::pair<std::string, DatumBase*>> ConfigParser::ListAllEntries(std::string section, std::string subsection)
+{
+	return ListNamedSection(section)->getEntries(subsection);
+}
+
+std::pair<std::string, DatumBase*> ConfigParser::GetEntry(std::string section, std::string key)
+{
+	return ListNamedSection(section)->getEntry(key);
+}
+
+std::pair<std::string, DatumBase*> ConfigParser::GetEntry(std::string section, std::string subsection, std::string key)
+{
+	return ListNamedSection(section)->getEntry(subsection,key);
 }

@@ -2,8 +2,10 @@
 
 #include<string>
 #include<map>
+#include<list>
 #include "DatumBase.h"
 
+#define ENTRY std::pair<std::string, DatumBase*>
 
 class Section
 {
@@ -13,8 +15,13 @@ public:
 	~Section();
 
 	//getters
-	std::map<std::string, DatumBase*> getPairs();
-	std::map<std::string, Section*> getSubsections();
+	std::list<ENTRY> getEntries();
+	std::list<ENTRY> getEntries(std::string subsection);
+	ENTRY getEntry(std::string name);
+	ENTRY getEntry(std::string subsection,std::string name);
+	
+	std::list<Section*> getSubsections();
+	Section* getSubsection(std::string name);
 
 	//adding functions
 	void addPair(std::string key, DatumBase* value);

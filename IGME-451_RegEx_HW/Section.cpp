@@ -17,14 +17,56 @@ Section::~Section()
 	}
 }
 
-std::map<std::string, DatumBase*> Section::getPairs()
+std::list<ENTRY> Section::getEntries()
 {
-	return pairs;
+	std::list<ENTRY> entries = std::list<ENTRY>();
+
+	for (std::map<std::string, DatumBase*>::iterator iter = pairs.begin(); iter != pairs.end(); ++iter) {
+		std::string key = iter->first;
+		DatumBase* value = iter->second;
+		entries.push_back(ENTRY(key,value));
+	}
+	return entries;
 }
 
-std::map<std::string, Section*> Section::getSubsections()
+std::list<ENTRY> Section::getEntries(std::string subsection)
 {
-	return subsections;
+	return getSubsection(subsection)->getEntries();
+}
+
+ENTRY Section::getEntry(std::string name)
+{
+	std::map<std::string, DatumBase*>::iterator pairIter = pairs.find(name);
+	if (pairIter == pairs.end()) {
+		return ENTRY();
+	}
+	std::string key = pairIter->first;
+	DatumBase* value = pairIter->second;
+	return ENTRY(key,value);
+}
+
+ENTRY Section::getEntry(std::string subsection, std::string name)
+{
+	return getSubsection(subsection)->getEntry(name);
+}
+
+
+std::list<Section*> Section::getSubsections()
+{
+	std::list<Section*> sections;
+	for (std::map<std::string,Section*>::iterator iter = subsections.begin(); iter != subsections.end(); ++iter) {
+		sections.push_back(iter->second);
+	}
+	return sections;
+}
+
+Section * Section::getSubsection(std::string name)
+{
+	std::map<std::string,Section*>::iterator sectionIter = subsections.find(name);
+	if (sectionIter == subsections.end()) {
+		return new Section();
+	}
+	return sectionIter->second;
 }
 
 void Section::addPair(std::string key, DatumBase* value)
