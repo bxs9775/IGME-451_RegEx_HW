@@ -14,9 +14,9 @@ public:
 	// getters
 	std::list<Datum> getValue();
 
-	//operator overrides
-	void operator=(std::list<Datum> val);
+	//other
 	friend std::ostream& operator<<(std::ostream& output, DatumList& data);
+	std::string toString();
 
 private:
 	//fields

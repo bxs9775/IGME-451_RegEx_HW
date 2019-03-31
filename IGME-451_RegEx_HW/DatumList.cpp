@@ -17,9 +17,26 @@ std::list<Datum> DatumList::getValue()
 	return value;
 }
 
-void DatumList::operator=(std::list<Datum> val)
+std::string DatumList::toString()
 {
-	value = val;
+	std::string strValue = "DatumList object:\n";
+	strValue.resize(MAX_STRING);
+
+	strValue.append(" -- type: ");
+	strValue.append(ConfigVar::conVarNames(getVarType()));
+	strValue.append("\n");
+	strValue.append(" -- value: [");
+	std::list<Datum> value = getValue();
+	std::list<Datum>::iterator iter = value.begin();
+	while (iter != value.end()) {
+		strValue.append(iter->getValue());
+		iter++;
+		if (iter != value.end()) {
+			strValue.append(", ");
+		}
+	}
+	strValue.append("]\n\n");
+	return strValue;
 }
 
 std::ostream & operator<<(std::ostream & output, DatumList & data)

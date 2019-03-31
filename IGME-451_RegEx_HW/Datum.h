@@ -14,9 +14,8 @@ public:
 	// getters
 	std::string getValue();
 
-	//operator overrides
-	void operator=(std::string val);
-	friend std::ostream& operator<<(std::ostream& output, Datum& data);
+	//other
+	std::string toString();
 private:
 	//fields
 	std::string value;

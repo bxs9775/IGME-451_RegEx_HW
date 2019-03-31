@@ -17,14 +17,16 @@ std::string Datum::getValue()
 	return value;
 }
 
-void Datum::operator=(std::string val)
+std::string Datum::toString()
 {
-	value = val;
-}
-std::ostream & operator<<(std::ostream& output, Datum & data)
-{
-	output << "Datum object:" << std::endl;
-	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl;
-	output << " -- value: " << data.getValue() << std::endl << std::endl;
-	return output;
+	std::string strValue = "DatumList object:\n";
+	strValue.resize(MAX_STRING);
+
+	strValue.append(" -- type: ");
+	strValue.append(ConfigVar::conVarNames(getVarType()));
+	strValue.append("\n");
+	strValue.append(" -- value: ");
+	strValue.append(getValue());
+	strValue.append("\n\n");
+	return strValue;
 }

@@ -16,9 +16,13 @@ ConfigVar::configVar DatumBase::getVarType()
 	return varType;
 }
 
-std::ostream & operator<<(std::ostream & output, DatumBase & data)
+std::string DatumBase::toString()
 {
-	output << "DatumBase object:" << std::endl;
-	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl << std::endl;
-	return output;
+	std::string strValue = "DatumBase object:\n";
+	strValue.resize(MAX_STRING);
+
+	strValue.append(" -- type: ");
+	strValue.append(ConfigVar::conVarNames(getVarType()));
+	strValue.append("\n\n");
+	return strValue;
 }
