@@ -100,9 +100,8 @@ bool ConfigParser::parseConfig()
 			}
 			std::string key = keyValueMatch[1];
 			std::string value = keyValueMatch[2];
-			ConfigVar::configVar types[6] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_LIST_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
 			
-			if (!parseType(lineInd, key, value, types,6)) {
+			if (!parseType(lineInd, key, value)) {
 				return false;
 			}
 
@@ -113,17 +112,49 @@ bool ConfigParser::parseConfig()
 	return false;
 }
 
-bool ConfigParser::parseType(int lineInd, std::string key, std::string value, ConfigVar::configVar varTypes[], int size)
+bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 {
 	std::cout << "[Begin value parsing]" << std::endl;
-	for (int i = 0; i < size; i++) {
-		ConfigVar::configVar currVar = varTypes[i];
+	
+	for (int i = 0; i < 6; i++) {
+		ConfigVar::configVar currVar = fullAllowedTypes[i];
 		std::smatch varMatch;
 		if (std::regex_match(value, varMatch, conVarRegex[(int)currVar])) {
 			std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar) << "." << std::endl;
 			// The modified value for the data.
 			std::string modVal = varMatch[1];
 			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;
+			if (currVar == ConfigVar::configVar::CONFIG_LIST_T) {
+				auto list_start = std::sregex_token_iterator(modVal.begin(), modVal.end(), semiRegex, -1);
+				auto list_end = std::sregex_token_iterator();
+
+				std::list<Datum> dataList = std::list<Datum>();
+				for (std::sregex_token_iterator listIter = list_start; listIter != list_end; ++listIter) {
+					std::string listVal = listIter->str();
+					for (int j = 0; j < 5; j++) {
+						ConfigVar::configVar currVar2 = listAllowedTypes[i];
+						std::smatch varMatch2;
+						if (std::regex_match(listVal, varMatch, conVarRegex[(int)currVar2])) {
+							std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar2) << "." << std::endl;
+							// The modified value for the data.
+							std::string modVal2 = varMatch2[1];
+							std::cout << "Line " << lineInd << ": captured value = " << modVal2 << std::endl;
+							Datum data = Datum(currVar2, modVal2);
+							dataList.push_back(data);
+							continue;
+						}
+					}
+					std::cerr << "Line " << lineInd << ": the value - " << value << " - is not valid value." << std::endl;
+					return false;
+				}
+				DatumList* datumList = new DatumList(currVar, dataList);
+				if (subsection == "") {
+					ListNamedSection(section)->addPair(key, datumList);
+				}
+				else {
+					ListNamedSection(section)->addPair(subsection, key, datumList);
+				}
+			}
 			Datum* datum = new Datum(currVar, modVal);
 			if (subsection == "") {
 				ListNamedSection(section)->addPair(key, datum);

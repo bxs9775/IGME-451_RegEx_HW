@@ -19,8 +19,23 @@ int main()
 		DatumBase* value = pairIter->second;
 		std::cout << "Value = " << std::endl;
 		//std::cout << " -- Type: " << value->getVarType() << std::endl;
-		std::cout << value;
-		//std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
+		//std::cout << (*value);
+		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
+			std::list<Datum> valList = ((DatumList*)value)->getValue();
+			std::list<Datum>::iterator iter = valList.begin();
+			std::cout << " -- Value:[";
+			while (iter != valList.end()) {
+				std::cout << iter->getValue();
+				iter++;
+				if (iter != valList.end()) {
+					std::cout << ", ";
+				}
+			}
+			std::cout << "]" << std::endl << std::endl;
+		}
+		else {
+			std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
+		}
 	}
 	return 0;
 }
