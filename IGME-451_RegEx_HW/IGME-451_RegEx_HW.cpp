@@ -6,7 +6,7 @@
 #include "DatumBase.h"
 #include "ConfigVar.h"
 
-#define INPUT_FILE "input\\HW3_Test10.txt"
+#define INPUT_FILE "input\\HW3_Ex_Config 2.txt"
 
 int main()
 {
@@ -15,9 +15,9 @@ int main()
 	
 	/*
 	//Temporary pair checking code...
-	std::map<std::string, DatumBase*> pairs = configParse.ListNamedSection("globals")->getPairs();
+	std::list<std::pair<std::string, DatumBase*>> pairs = configParse.ListNamedSection("globals")->getEntries();
 
-	for (std::map<std::string, DatumBase*>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
+	for (std::list<std::pair<std::string, DatumBase*>>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
 		std::cout << "Key = " << pairIter->first << std::endl;
 		DatumBase* value = pairIter->second;
 		std::cout << "Value = " << std::endl;

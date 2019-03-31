@@ -2,8 +2,13 @@
 #include "Section.h"
 
 
-Section::Section()
+Section::Section():Section("")
 {
+}
+
+Section::Section(std::string name)
+{
+	this->name = name;
 }
 
 
@@ -15,6 +20,11 @@ Section::~Section()
 	for (std::map<std::string, Section*>::iterator subIter = subsections.begin(); subIter != subsections.end(); ++subIter) {
 		delete(subIter->second);
 	}
+}
+
+std::string Section::getName()
+{
+	return name;
 }
 
 std::list<ENTRY> Section::getEntries()
@@ -34,20 +44,19 @@ std::list<ENTRY> Section::getEntries(std::string subsection)
 	return getSubsection(subsection)->getEntries();
 }
 
-ENTRY Section::getEntry(std::string name)
+ENTRY Section::getEntry(std::string key)
 {
-	std::map<std::string, DatumBase*>::iterator pairIter = pairs.find(name);
+	std::map<std::string, DatumBase*>::iterator pairIter = pairs.find(key);
 	if (pairIter == pairs.end()) {
 		return ENTRY();
 	}
-	std::string key = pairIter->first;
 	DatumBase* value = pairIter->second;
 	return ENTRY(key,value);
 }
 
-ENTRY Section::getEntry(std::string subsection, std::string name)
+ENTRY Section::getEntry(std::string subsection, std::string key)
 {
-	return getSubsection(subsection)->getEntry(name);
+	return getSubsection(subsection)->getEntry(key);
 }
 
 
@@ -60,9 +69,9 @@ std::list<Section*> Section::getSubsections()
 	return sections;
 }
 
-Section * Section::getSubsection(std::string name)
+Section * Section::getSubsection(std::string subName)
 {
-	std::map<std::string,Section*>::iterator sectionIter = subsections.find(name);
+	std::map<std::string,Section*>::iterator sectionIter = subsections.find(subName);
 	if (sectionIter == subsections.end()) {
 		return new Section();
 	}
@@ -82,12 +91,12 @@ void Section::addPair(std::string subName, std::string key, DatumBase* value)
 	}
 }
 
-bool Section::addSubsection(std::string name)
+bool Section::addSubsection(std::string subName)
 {
-	if (subsections.count(name)) {
+	if (subsections.count(subName)) {
 		// Error: can't have multiple subsections w/ the same name.
 		return false;
 	}
-	subsections[name] = new Section();
+	subsections[subName] = new Section(subName);
 	return true;
 }
