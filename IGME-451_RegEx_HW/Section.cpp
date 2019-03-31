@@ -2,13 +2,8 @@
 #include "Section.h"
 
 
-Section::Section():Section("")
+Section::Section()
 {
-}
-
-Section::Section(std::string name)
-{
-	this->name = name;
 }
 
 
@@ -20,11 +15,6 @@ Section::~Section()
 	for (std::map<std::string, Section*>::iterator subIter = subsections.begin(); subIter != subsections.end(); ++subIter) {
 		delete(subIter->second);
 	}
-}
-
-std::string Section::getName()
-{
-	return name;
 }
 
 std::list<ENTRY> Section::getEntries()
@@ -44,19 +34,20 @@ std::list<ENTRY> Section::getEntries(std::string subsection)
 	return getSubsection(subsection)->getEntries();
 }
 
-ENTRY Section::getEntry(std::string key)
+ENTRY Section::getEntry(std::string name)
 {
-	std::map<std::string, DatumBase*>::iterator pairIter = pairs.find(key);
+	std::map<std::string, DatumBase*>::iterator pairIter = pairs.find(name);
 	if (pairIter == pairs.end()) {
 		return ENTRY();
 	}
+	std::string key = pairIter->first;
 	DatumBase* value = pairIter->second;
 	return ENTRY(key,value);
 }
 
-ENTRY Section::getEntry(std::string subsection, std::string key)
+ENTRY Section::getEntry(std::string subsection, std::string name)
 {
-	return getSubsection(subsection)->getEntry(key);
+	return getSubsection(subsection)->getEntry(name);
 }
 
 
@@ -69,9 +60,9 @@ std::list<Section*> Section::getSubsections()
 	return sections;
 }
 
-Section * Section::getSubsection(std::string subsection)
+Section * Section::getSubsection(std::string name)
 {
-	std::map<std::string,Section*>::iterator sectionIter = subsections.find(subsection);
+	std::map<std::string,Section*>::iterator sectionIter = subsections.find(name);
 	if (sectionIter == subsections.end()) {
 		return new Section();
 	}
@@ -91,28 +82,12 @@ void Section::addPair(std::string subName, std::string key, DatumBase* value)
 	}
 }
 
-bool Section::addSubsection(std::string subsection)
+bool Section::addSubsection(std::string name)
 {
-	if (subsections.count(subsection)) {
+	if (subsections.count(name)) {
 		// Error: can't have multiple subsections w/ the same name.
 		return false;
 	}
-	subsections[subsection] = new Section(subsection);
+	subsections[name] = new Section();
 	return true;
-}
-
-std::string Section::toString()
-{
-	std::string strValue = getName();
-	strValue.resize(MAX_STRING);
-
-	strValue.append("\n");
-	for (std::map<std::string, DatumBase*>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
-		strValue.append(pairIter->second->toString());
-	}
-	for (std::map<std::string, Section*>::iterator subIter = subsections.begin(); subIter != subsections.end(); ++subIter) {
-		strValue.append("Subsection: ");
-		strValue.append(subIter->second->toString());
-	}
-	return strValue;
 }

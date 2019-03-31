@@ -3,8 +3,6 @@
 #include "ConfigVar.h"
 #include<iostream>
 
-#define MAX_STRING 9000
-
 class DatumBase
 {
 public:
@@ -15,7 +13,7 @@ public:
 	ConfigVar::configVar getVarType();
 
 	//other
-	std::string toString();
+	friend std::ostream& operator<<(std::ostream& output, DatumBase& data);
 protected:
 	ConfigVar::configVar varType;
 };

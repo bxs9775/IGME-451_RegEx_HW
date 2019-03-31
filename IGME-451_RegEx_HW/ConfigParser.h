@@ -40,7 +40,6 @@ public:
 	std::list<Section*> ListAllSections();
 	Section* ListNamedSection(std::string name);
 	std::list<Section*> ListSubsections(std::string name);
-	Section* ListNamedSubSection(std::string section, std::string name);
 	std::list<std::pair<std::string, DatumBase*>> ListAllEntries(std::string section);
 	std::list<std::pair<std::string, DatumBase*>> ListAllEntries(std::string section, std::string subsection);
 	std::pair<std::string, DatumBase*> GetEntry(std::string section, std::string key);

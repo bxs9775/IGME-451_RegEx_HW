@@ -83,7 +83,7 @@ bool ConfigParser::parseConfig()
 				}
 				continue;
 			}
-			data[section] = new Section(section);
+			data[section] = new Section();
 			if (subsection != "") {
 				ListNamedSection(section)->addSubsection(subsection);
 			}
@@ -224,11 +224,6 @@ Section* ConfigParser::ListNamedSection(std::string name)
 std::list<Section*> ConfigParser::ListSubsections(std::string name)
 {
 	return ListNamedSection(name)->getSubsections();
-}
-
-Section * ConfigParser::ListNamedSubSection(std::string section, std::string name)
-{
-	return ListNamedSection(section)->getSubsection(name);
 }
 
 std::list<std::pair<std::string, DatumBase*>> ConfigParser::ListAllEntries(std::string section)

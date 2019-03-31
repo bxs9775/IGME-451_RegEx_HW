@@ -2,29 +2,45 @@
 //
 
 #include "stdafx.h"
-#include <list>
 #include "ConfigParser.h"
 #include "DatumBase.h"
 #include "ConfigVar.h"
 
-#define INPUT_FILE "input\\HW3_Test1.txt"
-void printConfig(ConfigParser config) {
-	std::list<Section*> sections = config.ListAllSections();
-	for (std::list<Section*>::iterator secIter = sections.begin(); secIter != sections.end(); ++secIter) {
-		Section* sec = (*secIter);
-		std::cout << "Section: " << sec->toString() << std::endl << std::endl << std::endl;
-	}
-}
+#define INPUT_FILE "input\\HW3_Test10.txt"
 
 int main()
 {
 	ConfigParser configParse = ConfigParser(INPUT_FILE);
 	configParse.parseConfig();
 	
-	std::cout << "-------------------------" << std::endl;
+	/*
+	//Temporary pair checking code...
+	std::map<std::string, DatumBase*> pairs = configParse.ListNamedSection("globals")->getPairs();
 
-	//printConfig(configParse);
-	std::cout << configParse.GetEntry("globals", "str1").second->toString();
+	for (std::map<std::string, DatumBase*>::iterator pairIter = pairs.begin(); pairIter != pairs.end(); ++pairIter) {
+		std::cout << "Key = " << pairIter->first << std::endl;
+		DatumBase* value = pairIter->second;
+		std::cout << "Value = " << std::endl;
+		//std::cout << " -- Type: " << value->getVarType() << std::endl;
+		//std::cout << (*value);
+		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
+			std::list<Datum> valList = ((DatumList*)value)->getValue();
+			std::list<Datum>::iterator iter = valList.begin();
+			std::cout << " -- Value:[";
+			while (iter != valList.end()) {
+				std::cout << iter->getValue();
+				iter++;
+				if (iter != valList.end()) {
+					std::cout << ", ";
+				}
+			}
+			std::cout << "]" << std::endl << std::endl;
+		}
+		else {
+			std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
+		}
+	}
+	*/
 	return 0;
 }
 
