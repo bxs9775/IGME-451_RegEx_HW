@@ -1,0 +1,7 @@
+# Testing key/value pair before section
+
+willParse = false
+
+[globals]
+player = "system/player.h"
+enemy = "system/enemy.h"

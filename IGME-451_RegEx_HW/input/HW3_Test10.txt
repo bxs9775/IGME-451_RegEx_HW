@@ -1,0 +1,8 @@
+# Testing incomplete section, string, and list declarations
+
+[globals]
+int = 0
+str = "cat
+list = {1;2;3
+[globals:]
+[video

@@ -1,0 +1,17 @@
+# Section checking
+
+[sec1]
+var1 = 10
+var2 = "unknown"
+var3 = 
+[sec1:sub1]
+var1 = 11
+var2 = "mystery"
+[sec2:sub1]
+var0 = "What will happen?"
+[sec1:sub2]
+var1 = False
+
+#[sec1]
+[sec1:sub1]
+var4 = 1.0f

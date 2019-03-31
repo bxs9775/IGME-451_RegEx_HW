@@ -1,0 +1,8 @@
+# Float checking
+
+[ratings]
+poor = 0.5f
+poor = .5f
+avg = 1.25f
+high = 2.0f
+highest = 3.f #invalid

@@ -6,7 +6,7 @@
 #include "DatumBase.h"
 #include "ConfigVar.h"
 
-#define INPUT_FILE "input\\HW3_Test2.txt"
+#define INPUT_FILE "input\\HW3_Test10.txt"
 
 int main()
 {

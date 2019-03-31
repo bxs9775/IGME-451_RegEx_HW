@@ -74,16 +74,19 @@ bool ConfigParser::parseConfig()
 			subsection = sectionsMatch[2];
 			if (SectionExists(section)) {
 				if (subsection == "") {
-					std::cerr << "Line " << lineInd << ": Section \"" << section << "\" already created.";
+					std::cerr << "Line " << lineInd << ": Section \"" << section << "\" was already created.";
 					return false;
 				}
 				if (!ListNamedSection(section)->addSubsection(subsection)) {
-					std::cerr << "Line " << lineInd << ": Subsection \"" << subsection << "\" already created.";
+					std::cerr << "Line " << lineInd << ": Subsection \"" << subsection << "\" was already created.";
 					return false;
-				} 
+				}
 				continue;
 			}
 			data[section] = new Section();
+			if (subsection != "") {
+				ListNamedSection(section)->addSubsection(subsection);
+			}
 			continue;
 		}
 
@@ -95,21 +98,25 @@ bool ConfigParser::parseConfig()
 			std::cout << " -- key: " << keyValueMatch[1] << std::endl;
 			std::cout << " -- value: " << keyValueMatch[2] << std::endl;
 			if (section == "") {
-				std::cerr << "Line " << lineInd << ": Key-value pairs must be created in a section or subsection.";
+				std::cerr << "Line " << lineInd << ": key-value pair created outside a section" << std::endl;
 				return false;
 			}
 			std::string key = keyValueMatch[1];
 			std::string value = keyValueMatch[2];
-			
+			if (!std::regex_match(key, keyRegex)) {
+				KEY_ERROR(lineInd, key);
+				return false;
+			}
 			if (!parseType(lineInd, key, value)) {
 				return false;
 			}
 
 			continue;
 		}
-	std::cout << std::endl;
+		SYMBOL_ERROR(lineInd, currLine);
+		return false;
 	}
-	return false;
+	return true;
 }
 
 bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
@@ -127,7 +134,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 			if (currVar == ConfigVar::configVar::CONFIG_STRING_T) {
 				std::string extra = varMatch[2];
 				if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
-					std::cerr << "Line " << lineInd << ": Unexpected symbol - " << extra << std::endl;
+					SYMBOL_ERROR(lineInd, extra)
 					return false;
 				}
 			}
@@ -153,7 +160,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 							if (currVar2 == ConfigVar::configVar::CONFIG_STRING_T) {
 								std::string extra = varMatch2[2];
 								if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
-									std::cerr << "Line " << lineInd << ": Unexpected symbol - " << extra << std::endl;
+									SYMBOL_ERROR(lineInd, extra)
 									return false;
 								}
 							}
@@ -164,7 +171,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 						}
 					}
 					if (!valParsed) {
-						std::cerr << "Line " << lineInd << ": the value - " << listVal << " - is not valid value." << std::endl;
+						VALUE_ERROR(lineInd, listVal)
 						return false;
 					}
 				}
@@ -186,7 +193,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 			return true;
 		}
 	}
-	std::cerr << "Line " << lineInd << ": the value - " << value << " - is not valid value." << std::endl;
+	VALUE_ERROR(lineInd, value)
 	return false;
 }
 

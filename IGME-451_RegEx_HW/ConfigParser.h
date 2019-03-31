@@ -14,11 +14,12 @@
 using namespace std::regex_constants;
 
 
-/**
-#define MAX_INPUT 9000
-#define MAX_FILE_SIZE MAX_INPUT * sizeof(char)
-*/
 #define DATA_MAP std::map<std::string,Section*>
+
+#define INVALID_INPUT_ERROR(type,line,name) std::cerr << "Line " << line << ": Invalid " << type << " - " << name << std::endl;
+#define SYMBOL_ERROR(line,symbol)  INVALID_INPUT_ERROR("symbol",line,symbol)
+#define KEY_ERROR(line,key)  INVALID_INPUT_ERROR("key",line,key)
+#define VALUE_ERROR(line,value)  INVALID_INPUT_ERROR("value",line,value)
 
 class ConfigParser
 {
@@ -71,7 +72,9 @@ private:
 	std::regex blankLineRegex = std::regex("^\s*$");
 	//std::regex sectionRegex = std::regex("^[\\s*(\\S+)\\s]$");
 	std::regex sectionRegex = std::regex("^\\[(\\w+)(?:\\:(\\w+))?\\]$");
-	std::regex keyValueRegex = std::regex("^\\s*(\\w+)\\s*=\\s*(.+)\\s*$");
+	std::regex keyValueRegex = std::regex("^\\s*(.+?)\\s*=\\s*(.+)\\s*$");
+	
+	std::regex keyRegex = std::regex("\\w+");
 	std::regex semiRegex = std::regex(";");
 	//fields
 	//int lineIndex;

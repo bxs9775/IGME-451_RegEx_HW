@@ -1,0 +1,3 @@
+# Testing for invalid key name
+[globals]
+@=trueifIfeellikeit # Really should break!
