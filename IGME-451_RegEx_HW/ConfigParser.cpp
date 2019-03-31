@@ -125,27 +125,34 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 			std::string modVal = varMatch[1];
 			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;
 			if (currVar == ConfigVar::configVar::CONFIG_LIST_T) {
+				bool valParsed = false;
+
 				auto list_start = std::sregex_token_iterator(modVal.begin(), modVal.end(), semiRegex, -1);
 				auto list_end = std::sregex_token_iterator();
 
 				std::list<Datum> dataList = std::list<Datum>();
 				for (std::sregex_token_iterator listIter = list_start; listIter != list_end; ++listIter) {
+					valParsed = false;
 					std::string listVal = listIter->str();
+
 					for (int j = 0; j < 5; j++) {
-						ConfigVar::configVar currVar2 = listAllowedTypes[i];
+						ConfigVar::configVar currVar2 = listAllowedTypes[j];
 						std::smatch varMatch2;
-						if (std::regex_match(listVal, varMatch, conVarRegex[(int)currVar2])) {
+						if (std::regex_match(listVal, varMatch2, conVarRegex[(int)currVar2])) {
 							std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar2) << "." << std::endl;
 							// The modified value for the data.
 							std::string modVal2 = varMatch2[1];
 							std::cout << "Line " << lineInd << ": captured value = " << modVal2 << std::endl;
 							Datum data = Datum(currVar2, modVal2);
 							dataList.push_back(data);
+							valParsed = true;
 							continue;
 						}
 					}
-					std::cerr << "Line " << lineInd << ": the value - " << value << " - is not valid value." << std::endl;
-					return false;
+					if (!valParsed) {
+						std::cerr << "Line " << lineInd << ": the value - " << listVal << " - is not valid value." << std::endl;
+						return false;
+					}
 				}
 				DatumList* datumList = new DatumList(currVar, dataList);
 				if (subsection == "") {
