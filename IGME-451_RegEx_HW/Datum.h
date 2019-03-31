@@ -9,7 +9,6 @@ class Datum:
 public:
 	//constructor
 	Datum(ConfigVar::configVar vType, std::string val);
-	Datum(std::string name, ConfigVar::configVar vType, std::string val);
 	~Datum();
 
 	// getters
