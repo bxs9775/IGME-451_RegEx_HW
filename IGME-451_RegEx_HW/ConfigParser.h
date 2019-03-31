@@ -33,13 +33,19 @@ public:
 	bool parseConfig();
 	bool parseType(int lineInd, std::string key, std::string value);
 
+	// helpers
+	template <class T1,class T2>
+	std::list<T2> listValues(std::map<T1,T2> m); 
+
 	//Data getters
 	bool SectionExists(std::string name);
 	std::list<Section*> ListAllSections();
 	Section* ListNamedSection(std::string name);
 	std::list<Section*> ListSubsections(std::string name);
-	std::list<std::pair<std::string, Datum*>> ListAllEntries(std::string name);
+	std::list<std::pair<std::string, Datum*>> ListAllEntries(std::string section);
+	std::list<std::pair<std::string, Datum*>> ListAllEntries(std::string section, std::string subsection);
 	std::pair<std::string, Datum*> GetEntry(std::string section, std::string key);
+	std::pair<std::string, Datum*> GetEntry(std::string section, std::string subsection, std::string key);
 
 	//Other getters
 	int getLine();

@@ -13,6 +13,7 @@ int main()
 	ConfigParser configParse = ConfigParser(INPUT_FILE);
 	configParse.parseConfig();
 	
+	/*
 	//Temporary pair checking code...
 	std::map<std::string, DatumBase*> pairs = configParse.ListNamedSection("globals")->getPairs();
 
@@ -39,6 +40,7 @@ int main()
 			std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
 		}
 	}
+	*/
 	return 0;
 }
 
