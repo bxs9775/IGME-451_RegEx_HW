@@ -21,3 +21,10 @@ void Datum::operator=(std::string val)
 {
 	value = val;
 }
+std::ostream & operator<<(std::ostream& output, Datum & data)
+{
+	output << "Datum object:" << std::endl;
+	output << " -- type: " << ConfigVar::conVarNames(data.getVarType()) << std::endl;
+	output << " -- value: " << data.getValue() << std::endl << std::endl;
+	return output;
+}

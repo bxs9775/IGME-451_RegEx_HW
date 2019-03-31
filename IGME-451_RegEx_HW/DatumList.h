@@ -16,6 +16,7 @@ public:
 
 	//operator overrides
 	void operator=(std::list<Datum> val);
+	friend std::ostream& operator<<(std::ostream& output, DatumList& data);
 
 private:
 	//fields

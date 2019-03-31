@@ -13,8 +13,8 @@ public:
 	ConfigVar::configVar getVarType();
 
 	//other
-	std::ostream & operator <<(std::ostream& output);
-private:
+	friend std::ostream& operator<<(std::ostream& output, DatumBase& data);
+protected:
 	ConfigVar::configVar varType;
 };
 

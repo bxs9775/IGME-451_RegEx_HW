@@ -19,7 +19,8 @@ int main()
 		DatumBase* value = pairIter->second;
 		std::cout << "Value = " << std::endl;
 		//std::cout << " -- Type: " << value->getVarType() << std::endl;
-		std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
+		std::cout << value;
+		//std::cout << " -- Value: " << ((Datum*)value)->getValue() << std::endl << std::endl;
 	}
 	return 0;
 }
