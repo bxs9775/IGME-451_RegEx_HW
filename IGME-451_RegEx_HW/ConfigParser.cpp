@@ -207,38 +207,56 @@ Section* ConfigParser::ListNamedSection(std::string name)
 {
 	DATA_MAP::iterator sectionIter = data.find(name);
 	if (sectionIter == data.end()) {
-		return new Section();
+		return nullptr;
 	}
 	return sectionIter->second;
 }
 
 std::list<Section*> ConfigParser::ListSubsections(std::string name)
 {
+	if (!SectionExists(name)) {
+		return std::list<Section*>();
+	}
 	return ListNamedSection(name)->getSubsections();
 }
 
-Section * ConfigParser::ListNamedSubsection(std::string section, std::string name)
+Section* ConfigParser::ListNamedSubsection(std::string section, std::string name)
 {
+	if (!SectionExists(name)) {
+		return nullptr;
+	}
 	return ListNamedSection(section)->getSubsection(name);
 }
 
 std::list<std::pair<std::string, DatumBase*>> ConfigParser::ListAllEntries(std::string section)
 {
+	if (!SectionExists(section)) {
+		return std::list<std::pair<std::string, DatumBase*>>();
+	}
 	return ListNamedSection(section)->getEntries();
 }
 
 std::list<std::pair<std::string, DatumBase*>> ConfigParser::ListAllEntries(std::string section, std::string subsection)
 {
+	if (!SectionExists(section)) {
+		return std::list<std::pair<std::string, DatumBase*>>();
+	}
 	return ListNamedSection(section)->getEntries(subsection);
 }
 
 std::pair<std::string, DatumBase*> ConfigParser::GetEntry(std::string section, std::string key)
 {
+	if (!SectionExists(section)) {
+		return std::pair<std::string, DatumBase*>();
+	}
 	return ListNamedSection(section)->getEntry(key);
 }
 
 std::pair<std::string, DatumBase*> ConfigParser::GetEntry(std::string section, std::string subsection, std::string key)
 {
+	if (!SectionExists(section)) {
+		return std::pair<std::string, DatumBase*>();
+	}
 	return ListNamedSection(section)->getEntry(subsection,key);
 }
 

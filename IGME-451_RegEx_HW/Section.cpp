@@ -56,7 +56,11 @@ ENTRY Section::getEntry(std::string key)
 
 ENTRY Section::getEntry(std::string subsection, std::string key)
 {
-	return getSubsection(subsection)->getEntry(key);
+	Section* subPtr = getSubsection(subsection);
+	if (!subPtr) {
+		return ENTRY();
+	}
+	return subPtr->getEntry(key);
 }
 
 
@@ -73,7 +77,7 @@ Section * Section::getSubsection(std::string subName)
 {
 	std::map<std::string,Section*>::iterator sectionIter = subsections.find(subName);
 	if (sectionIter == subsections.end()) {
-		return new Section();
+		return nullptr;
 	}
 	return sectionIter->second;
 }
