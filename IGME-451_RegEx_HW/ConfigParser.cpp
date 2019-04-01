@@ -3,8 +3,6 @@
 
 ConfigParser::ConfigParser(std::string path)
 {
-
-	//lineIndex = 0;
 	loadFile(path);
 }
 
@@ -18,7 +16,6 @@ ConfigParser::~ConfigParser()
 // main functions
 std::string ConfigParser::loadFile(std::string path)
 {
-	//config = new char[MAX_FILE_SIZE];
 	std::ifstream file;
 	std::string line;
 	file.open(path);
@@ -40,36 +37,24 @@ bool ConfigParser::parseConfig()
 	lines.assign(lines_start, lines_end);
 
 	int numLines = lines.size();
-	//lineIndex = 0;
-	//Iterate through lines
 
 	std::string currLine = "";
 
 	for (int lineInd = 0; lineInd < numLines;lineInd++) {
 		currLine = lines[lineInd];
-		std::cout << "Line " << lineInd << ": " << currLine << std::endl;
 		
-		// Remove comment (these can be ignored).
-		std::cout << "Line " << lineInd << ": [Removing comments...]" << std::endl;
+		// Remove comments from config (these can be ignored).
 		currLine = std::regex_replace(currLine, commentRegex, "");
-		std::cout << "Line " << lineInd << ": " << currLine << std::endl;
 
 		// If there is only white space you can move on...
-		std::cout << "Line " << lineInd << ": [Checking whitespace...]" << std::endl;
 		if (std::regex_match(currLine, blankLineRegex))
 		{
-			std::cout << "Line " << lineInd << " has been skipped." << std::endl;
 			continue;
 		}
 
 		//Checking if this is a section.
-		std::cout << "Line " << lineInd << ": [Checking for sections...]" << std::endl;
 		std::smatch sectionsMatch;
 		if (std::regex_match(currLine, sectionsMatch, sectionRegex)) {
-			std::cout << "Line " << lineInd << " is a section." << std::endl;
-			std::cout << " -- section: " << sectionsMatch[1] << std::endl;
-			std::cout << " -- subsection: " << sectionsMatch[2] << std::endl;
-
 			section = sectionsMatch[1];
 			subsection = sectionsMatch[2];
 			if (SectionExists(section)) {
@@ -91,12 +76,8 @@ bool ConfigParser::parseConfig()
 		}
 
 		//Checking if this is a key value pair.
-		std::cout << "Line " << lineInd << ": [Checking for key value pairs...]" << std::endl;
 		std::smatch keyValueMatch;
 		if (std::regex_match(currLine, keyValueMatch, keyValueRegex)) {
-			std::cout << "Line " << lineInd << ": Line " << lineInd << " is a key value pair." << std::endl;
-			std::cout << " -- key: " << keyValueMatch[1] << std::endl;
-			std::cout << " -- value: " << keyValueMatch[2] << std::endl;
 			if (section == "") {
 				std::cerr << "Line " << lineInd << ": key-value pair created outside a section" << std::endl;
 				return false;
@@ -121,16 +102,16 @@ bool ConfigParser::parseConfig()
 
 bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 {
-	std::cout << "[Begin value parsing]" << std::endl;
-	
+	// Loop through to check each variable type.
 	for (int i = 0; i < 6; i++) {
 		ConfigVar::configVar currVar = fullAllowedTypes[i];
 		std::smatch varMatch;
 		if (std::regex_match(value, varMatch, conVarRegex[(int)currVar])) {
-			std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar) << "." << std::endl;
 			// The modified value for the data.
 			std::string modVal = varMatch[1];
-			std::cout << "Line " << lineInd << ": captured value = " << modVal << std::endl;
+
+			// For the string regex to work properly, I had to do a greedy capture of anything after the second double quotation mark.
+			// The program needs to check if this content is whitespace and throw an error if it isn't
 			if (currVar == ConfigVar::configVar::CONFIG_STRING_T) {
 				std::string extra = varMatch[2];
 				if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
@@ -138,27 +119,26 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 					return false;
 				}
 			}
-
+			// For lists, the program must parse the values within the list as well.
 			if (currVar == ConfigVar::configVar::CONFIG_LIST_T) {
-				//std::cout << "IS THIS RUNNING!!!" << std::endl;
 				bool valParsed = false;
 
 				auto list_start = std::sregex_token_iterator(modVal.begin(), modVal.end(), semiRegex, -1);
 				auto list_end = std::sregex_token_iterator();
 
+				// Checks each item in the list.
 				std::list<Datum*>* dataList = new std::list<Datum*>();
 				for (std::sregex_token_iterator listIter = list_start; listIter != list_end; ++listIter) {
 					valParsed = false;
 					std::string listVal = listIter->str();
 
+					// Checking against each non-list datatype.
 					for (int j = 0; j < 5; j++) {
 						ConfigVar::configVar currVar2 = listAllowedTypes[j];
 						std::smatch varMatch2;
 						if (std::regex_match(listVal, varMatch2, conVarRegex[(int)currVar2])) {
-							std::cout << "Line " << lineInd << " contains a variable of type " << ConfigVar::conVarNames(currVar2) << "." << std::endl;
 							// The modified value for the data.
 							std::string modVal2 = varMatch2[1];
-							std::cout << "Line " << lineInd << ": captured value = " << modVal2 << std::endl;
 							if (currVar2 == ConfigVar::configVar::CONFIG_STRING_T) {
 								std::string extra = varMatch2[2];
 								if (!std::regex_match(extra, conVarRegex[(int)ConfigVar::configVar::CONFIG_DEFAULT_T])) {
@@ -166,6 +146,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 									return false;
 								}
 							}
+							// Once the value is parsed add a new Datum object to the list.
 							Datum* data = new Datum(currVar2, modVal2);
 							dataList->push_back(data);
 							valParsed = true;
@@ -177,6 +158,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 						return false;
 					}
 				}
+				// Create and add a new DatumList object to the data structure.
 				DatumList* datumList = new DatumList(key, currVar, dataList);
 				if (subsection == "") {
 					ListNamedSection(section)->addPair(key, datumList);
@@ -184,8 +166,10 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 				else {
 					ListNamedSection(section)->addPair(subsection, key, datumList);
 				}
+				// Return out of the function, or this value will be overwritten by a Datum object...
 				return true;
 			}
+			// Create and add a new Datum object to the data structure.
 			Datum* datum = new Datum(key, currVar, modVal);
 			if (subsection == "") {
 				ListNamedSection(section)->addPair(key, datum);
@@ -193,9 +177,13 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 			else {
 				ListNamedSection(section)->addPair(subsection, key, datum);
 			}
+			// The value has been parsed, so the program can leave the function.
 			return true;
 		}
 	}
+	// If the value was correctly parsed the code won't reach this point.
+	// Therefore any values making it this far are invalid.
+	// Log an error and return false.
 	VALUE_ERROR(lineInd, value)
 	return false;
 }
