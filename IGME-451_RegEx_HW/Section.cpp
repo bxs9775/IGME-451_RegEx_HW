@@ -106,13 +106,20 @@ void Section::print(std::ostream & out)
 	out << "[" << getName() << "]" << std::endl;
 	std::list<ENTRY> entries = getEntries();
 	for (std::list<ENTRY>::iterator pairIter = entries.begin(); pairIter != entries.end(); ++pairIter) {
+		((Datum*)pairIter->second)->print(out);
+		
+		/*
 		DatumBase* value = pairIter->second;
+		value->print(out);
+		
 		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
 			((DatumList*)value)->print(out);
 		}
 		else {
 			((Datum*)value)->print(out);
 		}
+		*/
+		
 	}
 
 	std::list<Section*> secs = getSubsections();

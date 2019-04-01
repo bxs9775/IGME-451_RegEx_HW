@@ -14,7 +14,7 @@ public:
 	ConfigVar::configVar getVarType();
 
 	//other
-	void print (std::ostream& output);
+	void print(std::ostream& output);
 protected:
 	std::string name;
 	ConfigVar::configVar varType;

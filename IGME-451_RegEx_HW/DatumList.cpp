@@ -2,17 +2,20 @@
 #include "DatumList.h"
 
 
-DatumList::DatumList(std::string name, ConfigVar::configVar vType, std::list<Datum> val):DatumBase(name, vType)
+DatumList::DatumList(std::string name, ConfigVar::configVar vType, std::list<Datum*> val):DatumBase(name, vType)
 {
-	value = val;
+	value = new std::list<Datum*>(val);
 }
 
 
 DatumList::~DatumList()
 {
+	for (std::list<Datum*>::iterator iter = value->begin(); iter != value->end(); ++iter) {
+		delete(*iter);
+	}
 }
 
-std::list<Datum> DatumList::getValue()
+std::list<Datum*>* DatumList::getValue()
 {
 	return value;
 }
@@ -23,12 +26,12 @@ void DatumList::print(std::ostream& output)
 	//output << "DatumList:" << std::endl;
 	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
 	output << " -- value: [";
-	std::list<Datum> val = getValue();
-	std::list<Datum>::iterator iter = val.begin();
-	while (iter != value.end()) {
-		output << iter->getValue();
+	std::list<Datum*>* valList = getValue();
+	std::list<Datum*>::iterator iter = valList->begin();
+	while (iter != valList->end()) {
+		output << (*iter)->getValue();
 		iter++;
-		if (iter != val.end()) {
+		if (iter != valList->end()) {
 			output << ", ";
 		}
 	}
