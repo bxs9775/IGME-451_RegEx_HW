@@ -2,9 +2,10 @@
 #include "DatumList.h"
 
 
-DatumList::DatumList(std::string name, ConfigVar::configVar vType, std::list<Datum*> val):DatumBase(name, vType)
+DatumList::DatumList(std::string name, ConfigVar::configVar vType, std::list<Datum*>* val):DatumBase(name, vType)
 {
-	value = new std::list<Datum*>(val);
+	//value = new std::list<Datum*>(val);
+	value = val;
 }
 
 

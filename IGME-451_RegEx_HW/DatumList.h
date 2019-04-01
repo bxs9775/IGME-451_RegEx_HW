@@ -8,7 +8,7 @@ class DatumList :
 	public DatumBase
 {
 public:
-	DatumList(std::string name,ConfigVar::configVar vType, std::list<Datum*> val);
+	DatumList(std::string name,ConfigVar::configVar vType, std::list<Datum*>* val);
 	~DatumList();
 
 	// getters

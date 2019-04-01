@@ -110,7 +110,7 @@ void Section::print(std::ostream & out)
 		
 		/*
 		DatumBase* value = pairIter->second;
-		value->print(out);
+		//value->print(out);
 		
 		if (value->getVarType() == ConfigVar::configVar::CONFIG_LIST_T) {
 			((DatumList*)value)->print(out);
@@ -119,7 +119,6 @@ void Section::print(std::ostream & out)
 			((Datum*)value)->print(out);
 		}
 		*/
-		
 	}
 
 	std::list<Section*> secs = getSubsections();

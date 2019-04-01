@@ -146,7 +146,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 				auto list_start = std::sregex_token_iterator(modVal.begin(), modVal.end(), semiRegex, -1);
 				auto list_end = std::sregex_token_iterator();
 
-				std::list<Datum*> dataList = std::list<Datum*>();
+				std::list<Datum*>* dataList = new std::list<Datum*>();
 				for (std::sregex_token_iterator listIter = list_start; listIter != list_end; ++listIter) {
 					valParsed = false;
 					std::string listVal = listIter->str();
@@ -167,7 +167,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 								}
 							}
 							Datum* data = new Datum(currVar2, modVal2);
-							dataList.push_back(data);
+							dataList->push_back(data);
 							valParsed = true;
 							continue;
 						}
