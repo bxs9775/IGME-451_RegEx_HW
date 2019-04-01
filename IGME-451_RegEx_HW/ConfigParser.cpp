@@ -184,6 +184,7 @@ bool ConfigParser::parseType(int lineInd, std::string key, std::string value)
 				else {
 					ListNamedSection(section)->addPair(subsection, key, datumList);
 				}
+				return true;
 			}
 			Datum* datum = new Datum(key, currVar, modVal);
 			if (subsection == "") {

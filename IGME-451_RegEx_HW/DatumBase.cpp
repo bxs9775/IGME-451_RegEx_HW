@@ -26,6 +26,6 @@ ConfigVar::configVar DatumBase::getVarType()
 void DatumBase::print(std::ostream& output)
 {
 	output << "DatumBase - " << getName() << ":" << std::endl;
-	//output << "DatumBase:" << std::endl;
-	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl << std::endl;
+	output << "DatumBase:" << std::endl;
+	output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl << std::endl;
 }

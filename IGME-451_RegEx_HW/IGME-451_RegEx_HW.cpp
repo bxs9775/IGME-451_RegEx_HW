@@ -20,7 +20,6 @@ int main()
 	/* Code below calls the ConfigParser's print() function to print all sections, 
 	there are other methods for exploring the data.*/
 	configParse.print(std::cout);
-	//configParse.ListNamedSection("video")->print(std::cout);
 	return 0;
 }
 

@@ -4,7 +4,6 @@
 
 DatumList::DatumList(std::string name, ConfigVar::configVar vType, std::list<Datum*>* val):DatumBase(name, vType)
 {
-	//value = new std::list<Datum*>(val);
 	value = val;
 }
 
@@ -24,8 +23,8 @@ std::list<Datum*>* DatumList::getValue()
 void DatumList::print(std::ostream& output)
 {
 	output << "DatumList - " << getName() << ":" << std::endl;
-	//output << "DatumList:" << std::endl;
-	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
+	output << "DatumList:" << std::endl;
+	output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
 	output << " -- value: [";
 	std::list<Datum*>* valList = getValue();
 	std::list<Datum*>::iterator iter = valList->begin();

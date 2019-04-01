@@ -30,6 +30,6 @@ void Datum::print(std::ostream& output)
 	else {
 		output << "Datum:" << std::endl;
 	}
-	//output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
+	output << " -- type: " << ConfigVar::conVarNames(getVarType()) << std::endl;
 	output << " -- value: " << getValue() << std::endl << std::endl;
 }

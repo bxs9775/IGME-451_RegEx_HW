@@ -69,18 +69,16 @@ private:
 		//CONFIG_DEFAULT_T regex
 		std::regex("(\\s*)"),
 	};
-	//std::regex newLineRegex = std::regex("^.*?$");
 	std::regex newLineRegex = std::regex("\\n");
 	std::regex commentRegex = std::regex("#.*$");
 	std::regex blankLineRegex = std::regex("^\s*$");
-	//std::regex sectionRegex = std::regex("^[\\s*(\\S+)\\s]$");
 	std::regex sectionRegex = std::regex("^\\[(\\w+)(?:\\:(\\w+))?\\]$");
 	std::regex keyValueRegex = std::regex("^\\s*(.+?)\\s*=\\s*(.+)\\s*$");
 	
 	std::regex keyRegex = std::regex("\\w+");
 	std::regex semiRegex = std::regex(";");
+	
 	//fields
-	//int lineIndex;
 	std::map<std::string, Section*> data;
 	std::string config;
 	std::string section;
