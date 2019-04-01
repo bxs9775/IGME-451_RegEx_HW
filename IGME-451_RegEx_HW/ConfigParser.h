@@ -25,17 +25,43 @@ class ConfigParser
 {
 public:
 	// constructors
+	///<summary>Initializes a ConfigParser object.</summary>
+	///<param name="path">The path to the config file to be parsed.</param>
 	ConfigParser(std::string path);
+
+	///<summary>Deconstructs a deleted ConfigParser object.</summary>
 	~ConfigParser();
 
 	// main functions
+	///<summary>Loads in a config file to parse.</summary>
+	///<param name="path">The path to the config file to be loaded.</param>
+	///<returns>The content of the file as a std::string object.</returns>
 	std::string loadFile(std::string path);
+	
+	///<summary>Parses the current config file.</summary>
+	///<returns>Boolean true if the file parsed without errors, or boolean false if parsing failed.</returns>
 	bool parseConfig();
+
+	///<summary>Parses the value of a key-value pair.</summary>
+	///<param name="lineInd">The current line number (used for error reporting).</param>
+	///<param name="key">The key of the key-value pair, used to store the parsed value in the correct place.</param>
+	///<param name="value">The value of the key-value pair, what the function is parsing.</param>
+	///<returns>Boolean true if the value parsed without errors, or boolean false if parsing failed.</returns>
 	bool parseType(int lineInd, std::string key, std::string value);
 
 	//Data getters
+	///<summary>Determines if there is a section with the given name.</summary>
+	///<param name="name">The name of the section to seach for.</param>
+	///<returns>Boolean true if the section is found, boolean false if it isn't.</returns>
 	bool SectionExists(std::string name);
+	
+	///<summary>Gets a list of sections on the top level of the parsed data structure.</summary>
+	///<returns>A list containing pointers to the retrieved sections.</returns>
 	std::list<Section*> ListAllSections();
+
+	///<summary>Gets the section with the given name.</summary>
+	///<param name="name">The name of the section to seach for.</param>
+	///<returns>A pointer to the named section, or a nullpointer if it doesn't exist.<returns>
 	Section* ListNamedSection(std::string name);
 	std::list<Section*> ListSubsections(std::string name);
 	Section* ListNamedSubsection(std::string section, std::string name);
