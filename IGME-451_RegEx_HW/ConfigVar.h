@@ -4,6 +4,7 @@
 
 static class ConfigVar {
 public:
+	///<summary>An enum that keeps track the different datatypes that can be created in a config file.</summary>
 	static enum class configVar {
 		CONFIG_BOOLEAN_T = 0,
 		CONFIG_INT_T = 1,
@@ -13,5 +14,8 @@ public:
 		CONFIG_DEFAULT_T = 5,
 	};
 
+	///<summary>Takes a configVar enum and returns the correct string representation.</summary>
+	///<param name=var>A configVar enum value to be translated into a string.</param>
+	///<returns>A string representation for the configVar.</returns>
 	static std::string conVarNames(configVar var);
 };

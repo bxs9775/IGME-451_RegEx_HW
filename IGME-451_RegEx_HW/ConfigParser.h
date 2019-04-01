@@ -63,18 +63,54 @@ public:
 	///<param name="name">The name of the section to seach for.</param>
 	///<returns>A pointer to the named section, or a nullpointer if it doesn't exist.<returns>
 	Section* ListNamedSection(std::string name);
+
+	///<summary>Gets the list of the subsections for a given section.</summary>
+	///<param name="name">The name of the containing section.</param>
+	///<returns>A list that contains pointers to the retrieved subsections, 
+	///or an empty list if there are no subsections or the section doesn't exist.</returns>
 	std::list<Section*> ListSubsections(std::string name);
+
+	///<summary>Gets the subsection in the given section with the given name.</summary>
+	///<param name="section">The name of the containing section.</param>
+	///<param name="name">The name of the subsection to seach for.</param>
+	///<returns>A pointer to the named subsection, or a nullpointer if it or the containing section doesn't exist.<returns>
 	Section* ListNamedSubsection(std::string section, std::string name);
+
+	///<summary>Gets a list of the entries for a section.</summary>
+	///<param name="name">The name of the containing section.</param>
+	///<returns>A list that contains the entities, or an empty list if there are no entities or the section doesn't exist.</returns>
 	std::list<std::pair<std::string, DatumBase*>> ListAllEntries(std::string section);
+	
+	///<summary>Gets a list of the entries for a section and subsection.</summary>
+	///<param name="section">The name of the containing section.</param>
+	///<param name="subsection">The name of the containing subsection.</param>
+	///<returns>A list that contains the entities, or an empty list if there are no entities or either the section or subsection don't exist.</returns>
 	std::list<std::pair<std::string, DatumBase*>> ListAllEntries(std::string section, std::string subsection);
+	
+	///<summary>Gets an entry in the given section</summary>
+	///<param name="section">The name of the containing section.</param>
+	///<param name="key">The key for the entry.</param>
+	///<returns>The entry as a pair object, or a default pair if the entry or section doesn't exist.</returns>
 	std::pair<std::string, DatumBase*> GetEntry(std::string section, std::string key);
+
+	///<summary>Gets an entry in the given section</summary>
+	///<param name="section">The name of the containing section.</param>
+	///<param name="subsection">The name of the containing subsection.</param>
+	///<param name="key">The key for the entry.</param>
+	///<returns>The entry as a pair object, or a default pair if the entry, section, or subsection doesn't exist</returns>
 	std::pair<std::string, DatumBase*> GetEntry(std::string section, std::string subsection, std::string key);
 
 	//Other functions
+	///<summary>Prints the parsed data in a human friendly format.</summary>
+	///<param name="out">The output stream to print to.</param>
 	void print(std::ostream& out);
 private:
+	// Complete array of all the datatypes used in parsing values.
 	ConfigVar::configVar fullAllowedTypes[6] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_LIST_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
+	// Complete array of all the datatypes used in parsing values within a list. The current parsing system does not allow nested lists.
 	ConfigVar::configVar listAllowedTypes[5] = { ConfigVar::configVar::CONFIG_BOOLEAN_T, ConfigVar::configVar::CONFIG_FLOAT_T, ConfigVar::configVar::CONFIG_INT_T, ConfigVar::configVar::CONFIG_STRING_T, ConfigVar::configVar::CONFIG_DEFAULT_T };
+	
+	// regex objects used in parsing
 	std::regex conVarRegex[6] = {
 		// CONFIG_BOOLEAN_T regex
 		std::regex("\\s*(true)\\s*|\\s*(false)\\s*", ECMAScript | icase),
@@ -105,9 +141,13 @@ private:
 	std::regex semiRegex = std::regex(";");
 	
 	//fields
+	// Stores the parsed data.
 	std::map<std::string, Section*> data;
+	// Stores the loaded data to be parsed.
 	std::string config;
+	// Stores the name of the current section
 	std::string section;
+	// Stores the name of the current subsection
 	std::string subsection;
 };
 

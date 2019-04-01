@@ -13,6 +13,7 @@ DatumList::~DatumList()
 	for (std::list<Datum*>::iterator iter = value->begin(); iter != value->end(); ++iter) {
 		delete(*iter);
 	}
+	delete(value);
 }
 
 std::list<Datum*>* DatumList::getValue()

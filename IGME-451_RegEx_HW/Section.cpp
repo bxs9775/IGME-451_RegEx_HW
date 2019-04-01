@@ -41,7 +41,11 @@ std::list<ENTRY> Section::getEntries()
 
 std::list<ENTRY> Section::getEntries(std::string subsection)
 {
-	return getSubsection(subsection)->getEntries();
+	Section* subPtr = getSubsection(subsection);
+	if (!subPtr) {
+		return std::list<ENTRY>();
+	}
+	return subPtr->getEntries();
 }
 
 ENTRY Section::getEntry(std::string key)
